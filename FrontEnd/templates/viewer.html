@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>(S)IGNIS</title>
+  <!-- Bootstrap core CSS-->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom fonts for this template-->
+  <link href="../static/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../static/css/sb-admin.css" rel="stylesheet">
+  <link href="../static/css/ol.css" rel="stylesheet">
+  <!-- ol-ext -->
+  <link rel="stylesheet" href="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.css" />
+
+  <link rel="stylesheet" href="../static/css/ol-geocoder.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/ol-contextmenu@latest/dist/ol-contextmenu.min.css" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://unpkg.com/ol-popup@3.0.0/src/ol-popup.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- ANGULAR MATERIAL -->
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
+  <!-- Angular Material Library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+
+  <!-- jsPanel CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/jspanel.css" rel="stylesheet">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.1/proj4.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.4.1/proj4-src.js"></script>
+          <!-- JS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+  <script src="https://use.fontawesome.com/c79e2f3459.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+  <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
+  <!-- OL-ext -->
+<link rel="stylesheet" href="../static/css/ol-ext.css" />
+  <style>
+  
+  .navbar-expand-lg .navbar-nav .nav-link{
+    padding-left: 5px;
+    font-size: 18px;
+  }
+  body {
+    font-size: 0.75rem;
+    
+  }
+  #collapseComponents11 {
+      margin-bottom: 0;
+      margin-left: -40px;
+  }
+  #collapseComponents12 {
+      margin-bottom: 0;
+      margin-left: -40px;
+  }
+  .navbar-brand {
+    display: block;
+padding-top: .3125rem;
+padding-bottom: .3125rem;
+margin-right: 1rem;
+font-size: 1.25rem;
+line-height: inherit;
+white-space: nowrap;
+margin-left: 15px;
+position: relative;
+float: left;
+}
+.ol-popup {
+    background-color: rgba(0,0,0,0.75);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    display: inline-flex;
+    width: auto;
+}
+.ol-popup-content {
+    border: 0px;
+    padding: 0;
+}
+.tooltip {
+        position: relative;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        color: white;
+        padding: 4px 8px;
+        opacity: 0.7;
+        white-space: nowrap;
+      }
+      .tooltip-measure {
+        opacity: 1;
+        font-weight: bold;
+      }
+      .tooltip-static {
+        background-color: #ffcc33;
+        color: black;
+        border: 1px solid white;
+      }
+      .tooltip-measure:before,
+      .tooltip-static:before {
+        border-top: 6px solid rgba(0, 0, 0, 0.5);
+        border-right: 6px solid transparent;
+        border-left: 6px solid transparent;
+        content: "";
+        position: absolute;
+        bottom: -6px;
+        margin-left: -7px;
+        left: 50%;
+      }
+      .tooltip-static:before {
+        border-top-color: #ffcc33;
+      }   
+      .ol-geocoder.gcd-txt-container {
+        position: fixed;
+        width: 150px;
+        height: 40px;
+        top: 5px;
+        right: 90px;
+        box-sizing: border-box;
+        border: 1px solid #101215;
+        border-radius: 4px;
+        z-index: 9999;
+      }
+      .ol-geocoder ul.gcd-txt-result {
+        top: 45px;
+      }
+  /*sidenav herramientas*/
+
+.moveSideButtonLayersOpened {
+        position: fixed; top: 40%; left: 275px; font-size: 8px;z-index: 1;
+        transition-timing-function: ease;  transition-duration: 0.25s;
+        height: 90px;
+        width: 45px;
+        border-bottom-right-radius: 90px;
+        border-top-right-radius: 90px;
+        padding-right: 7.5px;
+        cursor: pointer;
+        color: ghostwhite;
+        background-color: #417d97 !important;
+      }
+      .moveSideButtonLayersClosed {
+        position: fixed; top: 40%; left: -5px; font-size: 8px;z-index: 1;
+        transition-timing-function: ease; transition-duration: 0.25s;
+        height: 90px;
+        width: 45px;
+        border-bottom-right-radius: 90px;
+        border-top-right-radius: 90px;
+        padding-right: 7.5px;
+        cursor: pointer;
+        color: ghostwhite;
+        background-color: #417d97 !important;
+      }
+      .moveSideButtonToolsOpened {
+        position: fixed; top: 40%; right: 275px; font-size: 8px;z-index: 1;
+        transition-timing-function: ease;  transition-duration: 0.25s;
+        height: 90px;
+        width: 45px;
+        border-bottom-left-radius: 90px;
+        border-top-left-radius: 90px;
+        padding-left: 7.5px;
+        cursor: pointer;
+        color: ghostwhite;
+        background-color: #417d97 !important;
+
+      }
+      .moveSideButtonToolsClosed {
+        position: fixed; top: 40%; right: -5px; font-size: 8px;z-index: 1;
+        transition-timing-function: ease; transition-duration: 0.25s;
+        height: 90px;
+        width: 45px;
+        border-bottom-left-radius: 90px;
+        border-top-left-radius: 90px;
+        padding-left: 7.5px;
+        cursor: pointer;
+        color: ghostwhite;
+        background-color: #417d97 !important;
+
+      }
+
+md-sidenav {
+    box-sizing: border-box;
+    position: absolute;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    z-index: 60;
+    width: 275px;
+    max-width: 275px;
+    bottom: 0;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.md-button {
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    min-height: 36px;
+    min-width: 46.5px;
+    line-height: 36px;
+    padding-top: 10px;
+}
+
+md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-icon{
+  background-color: #c4dbdf;
+}
+
+.legend {
+  margin-top:5px;margin-bottom:5px;margin-left:2.5px;margin-right:2.5px;
+}
+
+.textLogin{
+        display: block;
+        position: absolute;
+        top: 1em;
+        left: 50%;
+        color: white;
+        z-index: 9999;
+        font: italic 14px Verdana;
+
+      }
+
+      .ol-custom-overviewmap,
+      .ol-custom-overviewmap.ol-uncollapsible {
+        top: auto;
+        right: auto;
+        left: 0;
+        bottom: 0;
+      }
+
+      .ol-custom-overviewmap:not(.ol-collapsed)  {
+        border: 1px solid black;
+      }
+
+      .ol-custom-overviewmap .ol-overviewmap-map {
+        border: none;
+        width: 250px;
+      }
+
+      .ol-custom-overviewmap .ol-overviewmap-box {
+        border: 2px solid red;
+      }
+
+      .ol-custom-overviewmap:not(.ol-collapsed) button{
+        bottom: auto;
+        right: auto;
+        left: 1px;
+        bottom: 1px;
+        display: none;
+      }
+
+      .fabSpeedDialdemoBasicUsage .text-capitalize {
+  text-transform: capitalize; }
+
+.fabSpeedDialdemoBasicUsage .md-fab:hover, .fabSpeedDialdemoBasicUsage .md-fab.md-focused {
+  background-color: #000 !important; }
+
+.fabSpeedDialdemoBasicUsage p.note {
+  font-size: 1.2rem; }
+
+.fabSpeedDialdemoBasicUsage .lock-size {
+  min-width: 300px;
+  min-height: 300px;
+  width: 300px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto; }
+
+  </style>
+</head>
+
+<body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top" ng-app="signis" ng-controller="signisController as ctrl">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 50px !important;" id="mainNav">
+    <img width=140 src="../static/img/signis.png">
+        
+      <ul class="navbar-nav ml-auto" style="margin-right: 70px;">
+        <!--<li>Punto 1: <input type="text" id="idPoint1" /></li>-->
+        <div id="coor" style="display: none;"></div>
+        <div id="street" style="display: none;"></div>
+        <div id="traficState" style="display: none;"></div>
+        
+        <!--<li>Punto 2: <input type="text" id="idPoint2" /></li>-->
+        <li class="nav-item" style="height: 50px;position: fixed;padding-top: 6px;        
+        margin-top: 0;margin-bottom: 0;padding-bottom: 0;        
+        top: 0;text-align: center;left: 150px;width: 100px;">
+          <a class="nav-link" href="/">
+            <i class="fa fa-fw fa-home"></i>
+            <span class="nav-link-text">Home</span>
+          </a>
+        </li> 
+        <li class="nav-item" style="height: 50px;position: fixed;padding-top: 6px;        
+        margin-top: 0;margin-bottom: 0;padding-bottom: 0;        
+        top: 0;text-align: center;left: 250px;width: 100px;">
+          <a class="nav-link" href="templates/viewer.html">
+            <i class="fa fa-fw fa-globe"></i>
+            <span class="nav-link-text">viewer</span>
+          </a>
+        </li> 
+        <li class="nav-item" style="height: 50px;position: fixed;padding-top: 6px;        
+        margin-top: 0;margin-bottom: 0;padding-bottom: 0;  cursor: pointer;     
+        top: 0;text-align: center;right: 0;width: 80px; ">
+          <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+            <i class="fa fa-fw fa-sign-out"></i><span id="varLog" class="nav-link-text">Login</span></a>
+        </li>
+      </ul>
+  </nav>
+  <div class="content-wrapper main container toolRoute">
+    <div class="container-fluid">
+        <div id="contenedor" style="height:calc(100% - 80px); width:100%; left:0px;top:50px;position:absolute;">
+          <div id="olMap" style="height:100%;width:100%; left:0;top:0; position: absolute; background-color: black;">
+            
+            <div class="lock-size" layout="row" layout-align="center center" style="position: fixed !important; top: 250px; left: 25px; z-index: 999;">
+              <md-fab-speed-dial md-open="ctrl.isOpen" md-direction="down" ng-class="ctrl.selectedMode">
+                <md-fab-trigger>
+                  <md-button aria-label="menu" class="md-fab md-warn">
+                    <i class="fa fa-fw fa-wrench" style="font-size: 25px;"></i>
+                  </md-button>
+                </md-fab-trigger>
+        
+                <md-fab-actions>
+                  <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+                    <i class="fa fa-fw fa-free-code-camp"></i>
+                  </md-button>
+                  <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+                    <i class="fa fa-fw fa-fire"></i>
+                  </md-button>
+                </md-fab-actions>
+              </md-fab-speed-dial>
+            </div>
+          </div>
+          <div id="overviewMap" style="height:200px;width:250px; left:1em;bottom:1em; position: absolute; background-color: black; border: ghostwhite 1px solid;"></div>
+        </div>
+    </div>
+  </div>
+  <div id="containerCanvas" style="max-width: 500px; max-height: 300px; position: fixed; z-index: -10;"></div>
+    <footer class="sticky-footer">
+      <div class="container">                               
+        <div class="text-center">
+          <div style="display: none; position: fixed; bottom: -5px; right: 650px; ">Coordenadas WGS84 geográficas	</div>	
+          <div id="mouse-position2" style="display: none; position: fixed; bottom: -5px; right: 500px;">	</div>	
+          <div style="display: none; position: fixed; bottom: -5px; right: 450px;">UTM </div>
+          <div id="mouse-position3" style="display: none; position: fixed; bottom: -5px; right: 315px; "> </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+    <!-- Logout Modal-->
+    <!-- Bootstrap core JavaScript-->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="../static/vendor/chart.js/Chart.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="../static/js/sb-admin.min.js"></script>
+
+    <script src="../static/js/request.js"></script>
+    <script src="../static/js/main.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/4.0.1/ol.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
+    <!-- jsPanel JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/jspanel.js"></script>
+  <!-- optionally jsPanel extensions -->
+  <script src="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/extensions/modal/jspanel.modal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/extensions/tooltip/jspanel.tooltip.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/extensions/hint/jspanel.hint.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/extensions/layout/jspanel.layout.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/extensions/contextmenu/jspanel.contextmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspanel4@4.0.0/dist/extensions/dock/jspanel.dock.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/ol-contextmenu"></script>
+
+  <script src="https://unpkg.com/ol-popup@3.0.0"></script>
+  <script src="../static/js/ol-geocoder.js"></script>
+  <script src="../static/js/featureanimation.js"></script>
+  <script src="../static/js/zoomanimation.js"></script>
+  
+  <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
+  <script>
+  
+  //	ANGULAR	    
+  var sesion = angular.module('signis', ['ngMaterial', 'ngMessages']); 
+  sesion.controller('signisController',['$scope','$http','$mdSidenav','$mdToast', function ($scope, $http, $mdSidenav, $mdToast) {
+
+    this.topDirections = ['left', 'up'];
+      this.bottomDirections = ['down', 'right'];
+
+      this.isOpen = false;
+
+      this.availableModes = ['md-fling', 'md-scale'];
+      this.selectedMode = 'md-fling';
+
+      this.availableDirections = ['up', 'down', 'left', 'right'];
+      this.selectedDirection = 'up';
+    var currentdate = new Date();
+    var datetime = "2018-" + currentdate.getMonth() + "-" + currentdate.getDate();
+    
+    window.app = {};
+    var app = window.app;
+    //PRINT PDF
+    app.print = function(opt_options) {
+		  var options = opt_options || {};
+		  var button = document.createElement('button');
+		  button.className = 'print';
+		  var this_ = this;
+		  var print = function() {
+     
+		  };
+		  button.addEventListener('click', print, false);
+		  button.addEventListener('touchstart', print, false);
+		  var element = document.createElement('div');
+		  element.className = 'print ol-unselectable ol-control';
+		  element.appendChild(button);  
+		  ol.control.Control.call(this, {element: element,target: options.target });
+		};
+		ol.inherits(app.print, ol.control.Control);
+    // PRINT PDF
+		//CENTRAR//
+		  app.centrar = function(opt_options) {
+		  var options = opt_options || {};
+		  var button = document.createElement('button');
+		 /*  button.innerHTML = 'B'; */
+		   button.className = 'centrar';
+		  var this_ = this;
+		  var centrar = function() {
+			var center = [-412728.56, 4924308.52];
+      olMap.getView().setCenter(center);
+			olMap.getView().setZoom(7);
+		  };
+		  button.addEventListener('click', centrar, false);
+		  button.addEventListener('touchstart', centrar, false);
+		  var element = document.createElement('div');
+		  element.className = 'centrar ol-unselectable ol-control';
+		  element.appendChild(button);  
+		  ol.control.Control.call(this, {element: element,target: options.target });
+		};
+		ol.inherits(app.centrar, ol.control.Control);
+    
+		var mousePositionControl2 = new ol.control.MousePosition({
+		  coordinateFormat: ol.coordinate.createStringXY(6),
+		  projection: 'EPSG:4326',
+		  className: 'custom-mouse-position',
+		  coordinateFormat: ol.coordinate.toStringHDMS,
+		  target: document.getElementById('mouse-position2'),
+		  undefinedHTML: ''
+		});
+	   var mousePositionControl3 = new ol.control.MousePosition({
+			  target: document.getElementById('mouse-position3'),
+			  className: 'custom-mouse-position',
+			  undefinedHTML: '',
+			  projection: myProjection,
+			  coordinateFormat : ol.coordinate.createStringXY(2),
+		  });
+
+  var source_capabase = new ol.source.XYZ({  url: 'https://{1-4}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png'});
+	var capabase = new ol.layer.Tile({source: source_capabase,name: 'DARK',description: 'CARTO',visible: true,
+  baseLayer: true, displayInLayerSwitcher: true,});
+  var OSM = new ol.layer.Tile({ source: new ol.source.OSM(), visible:true, 
+    baseLayer: true, displayInLayerSwitcher: true,  });
+  var source_aerial_bing = new ol.source.BingMaps({
+            key: 'ArI8uCPDtw0y4e58IBL66Qc-RmfMG3DvBCNS9Kdzj4BUS9SW6xNlRz9FRmW9NzKZ',
+            imagerySet: 'AerialWithLabels'
+          });
+		var aerial = new ol.layer.Tile({name:'aerial_bing',title: 'aerial_bing', 
+    baseLayer: true, displayInLayerSwitcher: true, 
+    preload: Infinity, description: 'Aerial',visible: true, source: source_aerial_bing});
+
+  var myProjectionName = 'EPSG:3857'; 
+  // proj4.defs(myProjectionName, "+proj=utm +zone=30 +ellps=GRS80 +units=m +no_defs");
+	var myProjection = ol.proj.get(myProjectionName);
+
+	// --- Se define el MAPA ---
+  var overviewMap = new ol.Map({
+    interactions: ol.interaction.defaults().extend([new ol.interaction.DragRotateAndZoom()]),
+    layers: [OSM],
+    controls: [mousePositionControl2,mousePositionControl3],
+    view: new ol.View({
+      projection: myProjection,
+      center: [-412728.56, 4924308.52],
+      zoom: 4
+    }),
+  target: document.getElementById('overviewMap'),
+  });
+  var olMap = new ol.Map({
+    interactions: ol.interaction.defaults().extend([new ol.interaction.DragRotateAndZoom()]),
+    layers: [capabase, aerial, OSM],
+    view: new ol.View({
+        projection: myProjection,
+        center: [-412728.56, 4924308.52],
+        zoom: 6.5
+    }),
+    controls: ol.control.defaults().extend ([
+      new ol.control.ScaleLine(),            
+      mousePositionControl2,mousePositionControl3,
+      new ol.control.FullScreen(),
+      new app.centrar(),
+      new app.print(),
+    ]),
+    target: document.getElementById('olMap'),
+    });
+    // var ctrl = new ol.control.CanvasScaleLine({	});
+    // olMap.addControl(ctrl);
+    olMap.addControl(new ol.control.LayerSwitcherImage());
+      // Change VIEW
+      var view = olMap.getView();
+      view.on("change:center", function(e) {
+          overviewMap.getView().setCenter(olMap.getView().getCenter());
+      });
+      view.on("change:resolution", function(e) {
+          overviewMap.getView().setZoom(olMap.getView().getZoom() - 3.5);
+      });
+      olMap.on('click', function(evt) {
+        res = olMap.getView().getResolution();
+      }); 
+      var vectorSource = new ol.source.Vector();
+      var vectorLayer = new ol.layer.Vector({
+        source: vectorSource,
+        style: new ol.style.Style({
+          stroke: new ol.style.Stroke({
+            color: 'blue',
+            width: 0.5
+          }),
+          fill: new ol.style.Fill({
+            color: 'rgba(0, 0, 255, 0.05)'
+          })
+        }),
+        crossOrigin: 'Anonymous',
+        baseLayer: false, displayInLayerSwitcher: false,
+      });
+      olMap.addLayer(vectorLayer);
+          // INIT CONTEXT MENU
+
+var pin_icon = 'http://cdn.rawgit.com/jonataswalker/ol3-contextmenu/master/examples/img/pin_drop.png';
+var center_icon = 'http://cdn.rawgit.com/jonataswalker/ol3-contextmenu/master/examples/img/center.png';
+var list_icon = 'http://cdn.rawgit.com/jonataswalker/ol3-contextmenu/master/examples/img/view_list.png';
+
+var contextmenu_items = [
+  {
+    text: 'Centrar aquí',
+    classname: 'bold',
+    icon: center_icon,
+    callback: center
+  },
+  {
+    text: 'Marcar',
+    icon: pin_icon,
+    callback: marker
+  },
+  '-' // this is a separator
+];
+
+var contextmenu = new ContextMenu({
+  width: 180,
+  items: contextmenu_items
+});
+olMap.addControl(contextmenu);
+
+var removeMarkerItem = {
+  text: 'Remove this Marker',
+  classname: 'marker',
+  callback: removeMarker
+};
+
+contextmenu.on('open', function (evt) {
+  var feature =	olMap.forEachFeatureAtPixel(evt.pixel, ft => ft);
+  
+  if (feature && feature.get('type') === 'removable') {
+    contextmenu.clear();
+    removeMarkerItem.data = { marker: feature };
+    contextmenu.push(removeMarkerItem);
+  } else {
+    contextmenu.clear();
+    contextmenu.extend(contextmenu_items);
+    contextmenu.extend(contextmenu.getDefaultItems());
+  }
+});
+
+olMap.on('pointermove', function (e) {
+  if (e.dragging) return;
+
+  var pixel = olMap.getEventPixel(e.originalEvent);
+  var hit = olMap.hasFeatureAtPixel(pixel);
+
+  olMap.getTargetElement().style.cursor = hit ? 'pointer' : '';
+});
+
+function elastic(t) {
+  return Math.pow(2, -10 * t) * Math.sin((t - 0.075) * (2 * Math.PI) / 0.3) + 1;
+}
+
+function center(obj) {
+  olMap.getView().animate({
+    duration: 700,
+    easing: elastic,
+    center: obj.coordinate
+  });
+}
+
+function removeMarker(obj) {
+  vectorLayer.getSource().removeFeature(obj.data.marker);
+}
+
+function marker(obj) {
+  var coord4326 = ol.proj.transform(obj.coordinate, 'EPSG:3857', 'EPSG:3857'),
+      template = 'Coordinate is ({x} | {y})',
+      iconStyle = new ol.style.Style({
+        image: new ol.style.Icon({ scale: .6, src: pin_icon }),
+        text: new ol.style.Text({
+          offsetY: 25,
+          text: ol.coordinate.format(coord4326, template, 2),
+          font: '15px Open Sans,sans-serif',
+          fill: new ol.style.Fill({ color: '#111' }),
+          stroke: new ol.style.Stroke({ color: '#eee', width: 2 })
+        })
+      }),
+      feature = new ol.Feature({
+        type: 'removable',
+        geometry: new ol.geom.Point(obj.coordinate)
+      });
+
+  feature.setStyle(iconStyle);
+  vectorLayer.getSource().addFeature(feature);
+}
+  // END CONTEXT MENU
+  // Bounce easing (custom)
+	var bounce = 3;
+	var a = (2*bounce+1) * Math.PI/2;
+	var b = -0.01;
+	var c = -Math.cos(a) * Math.pow(2, b);
+	ol.easing.bounce = function(t)
+	{	t = 1-Math.cos(t*Math.PI/2);
+		return (1 + Math.abs( Math.cos(a*t) ) * Math.pow(2, b*t) + c*t)/2;
+	}
+	
+	function pulseFeature(coord2)
+	{	var f = new ol.Feature (new ol.geom.Point(coord2));
+		f.setStyle (new ol.style.Style(
+					{	image: new ol.style.Circle (
+						{	radius: 30, 
+							points: 4,
+							src: "data/smile.png",
+							stroke: new ol.style.Stroke ({ color: "#00d8ff", width:2 })
+						})
+					}));
+		olMap.animateFeature(f, new ol.featureAnimation.Zoom(
+			{	fade: ol.easing.easeOut, 
+				duration:3000, 
+				easing: ol.easing[$("#easing").val()]
+			}));
+	}
+
+	function pulse(coord)
+	{	var nb = $("#easing").val()=='bounce' ? 1:3;
+		for (var i=0; i<nb; i++)
+		{	setTimeout (function()
+			{ var coord2 = coord;	pulseFeature (coord2);
+			}, i*500);
+		};
+	}
+
+        // INIT GEOCODER
+        var geocoder = new Geocoder('nominatim', {
+          provider: 'osm',
+          key: '__some_key__',
+          lang: 'es', //en-US, fr-FR
+          placeholder: 'Buscar...',
+          targetType: 'text-input',
+          limit: 5,
+          keepOpen: true,
+          autoComplete: true,
+        });
+        olMap.addControl(geocoder);
+        
+        //Listen when an address is chosen
+        geocoder.on('addresschosen', function (evt) {      
+            window.setTimeout(function () {
+              olMap.getView().setZoom(12);        
+            }, 1000);         
+        });
+        // END GEOCODER
+
+     }]); 
+ 
+  </script>
+</body>
+
+</html>

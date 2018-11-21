@@ -310,7 +310,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         </li> 
         <li class="nav-item" style="height: 50px;position: fixed;padding-top: 6px;        
         margin-top: 0;margin-bottom: 0;padding-bottom: 0;  cursor: pointer;     
-        top: 0;text-align: center;right: 0;width: 80px; ">
+        top: 0;text-align: center;right: 0;width: 100px; ">
           <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
             <i class="fa fa-fw fa-sign-out"></i><span id="varLog" class="nav-link-text">Login</span></a>
         </li>
@@ -319,27 +319,43 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   <div class="content-wrapper main container toolRoute">
     <div class="container-fluid">
         <div id="contenedor" style="height:calc(100% - 80px); width:100%; left:0px;top:50px;position:absolute;">
+          <button id="idMoveSideButtonLayers" mat-mini-fab class="moveSideButtonLayersClosed" ng-click="openSidenavLayers(evt);">
+            <i class="material-icons">layers</i>
+          </button>
           <div id="olMap" style="height:100%;width:100%; left:0;top:0; position: absolute; background-color: black;">
             
-            <div class="lock-size" layout="row" layout-align="center center" style="position: fixed !important; top: 250px; left: 25px; z-index: 999;">
-              <md-fab-speed-dial md-open="ctrl.isOpen" md-direction="down" ng-class="ctrl.selectedMode">
+            <div class="lock-size" layout="row" layout-align="center center" style="position: fixed !important; top: 120px; left: 5px; z-index: 9;">
+              <md-fab-speed-dial ng-open="false" ng-direction="down" class="md-fling" aria-expanded="false">
                 <md-fab-trigger>
-                  <md-button aria-label="menu" class="md-fab md-warn">
-                    <i class="fa fa-fw fa-wrench" style="font-size: 25px;"></i>
+                  <md-button aria-label="menu" class="md-fab md-warn" style="padding-top: 4px;">
+                    <i class="fa fa-fw fa-wrench" style="font-size: 30px; text-align: center; padding: initial;"></i>
                   </md-button>
                 </md-fab-trigger>
         
                 <md-fab-actions>
-                  <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
-                    <i class="fa fa-fw fa-free-code-camp"></i>
+                  <md-button aria-label="Twitter" class="md-fab md-raised md-mini" style="background-color: #F7D358 !important; padding-top: 4px;">
+                    <i class="fa fa-fw fa-free-code-camp" style="font-size: 20px; text-align: center; padding: initial;"></i>
                   </md-button>
-                  <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
-                    <i class="fa fa-fw fa-fire"></i>
+                  <md-button aria-label="Facebook" class="md-fab md-raised md-mini" style="background-color: #F7D358 !important; padding-top: 4px;">
+                    <i class="fa fa-fw fa-fire" style="font-size: 20px; text-align: center; padding: initial;"></i>
                   </md-button>
                 </md-fab-actions>
               </md-fab-speed-dial>
             </div>
           </div>
+          <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4" styles="width: 350px;">
+            <md-toolbar class="md-theme-indigo" style="background-color: #417d97;">
+              <h1 id="titleSidenavLayers" class="md-toolbar-tools">Capas</h1>
+            </md-toolbar>
+            <ul style="/*background-color:#1a3139 !important*/ padding: 25px; font-size:15px;">
+              <li id="LayerAparcamientoBicis" class="nav-item">
+                  <md-checkbox ng-click="LoadLayerAparcamientoBicis()">
+                      Aparcamiento de bicis
+                  </md-checkbox>
+              </li> 
+                
+            </ul> 
+          </md-sidenav>
           <div id="overviewMap" style="height:200px;width:250px; left:1em;bottom:1em; position: absolute; background-color: black; border: ghostwhite 1px solid;"></div>
         </div>
     </div>
@@ -409,6 +425,20 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
 
       this.availableDirections = ['up', 'down', 'left', 'right'];
       this.selectedDirection = 'up';
+      var moveSideButtonLayers = false;
+      $scope.openSidenavLayers = function(evt) {
+        $mdSidenav('left').toggle();
+
+    if (moveSideButtonLayers === false) {
+      moveSideButtonLayers = true;
+      document.getElementById('idMoveSideButtonLayers').classList.remove('moveSideButtonLayersClosed');
+      document.getElementById('idMoveSideButtonLayers').classList.add('moveSideButtonLayersOpened');
+    } else {
+      moveSideButtonLayers = false;
+      document.getElementById('idMoveSideButtonLayers').classList.remove('moveSideButtonLayersOpened');
+      document.getElementById('idMoveSideButtonLayers').classList.add('moveSideButtonLayersClosed');
+    }
+  }
     var currentdate = new Date();
     var datetime = "2018-" + currentdate.getMonth() + "-" + currentdate.getDate();
     
@@ -494,7 +524,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     view: new ol.View({
       projection: myProjection,
       center: [-412728.56, 4924308.52],
-      zoom: 4
+      zoom: 3
     }),
   target: document.getElementById('overviewMap'),
   });
@@ -524,7 +554,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
           overviewMap.getView().setCenter(olMap.getView().getCenter());
       });
       view.on("change:resolution", function(e) {
-          overviewMap.getView().setZoom(olMap.getView().getZoom() - 3.5);
+          overviewMap.getView().setZoom(olMap.getView().getZoom() - 4);
       });
       olMap.on('click', function(evt) {
         res = olMap.getView().getResolution();
@@ -545,6 +575,36 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         baseLayer: false, displayInLayerSwitcher: false,
       });
       olMap.addLayer(vectorLayer);
+
+      /* LAYERS */
+      // Aparcamiento bicis:
+  // http://mapas.valencia.es/lanzadera/opendata/aparcabicis/wms?
+
+  var AparcamientoBicis = new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://carto.icv.gva.es/arcgis/services/tm_medio_ambiente/prevencion_de_incendios/MapServer/WmsServer?',
+      params: {
+        'LAYERS': '16', 'STYLES': 'default',
+        'TILED': true, 'format': 'image/png', 'VERSION': '1.3.0'
+      },
+    }), title: 'AparcaBicis', description: 'OpenDataValencia', visible: false, 
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(AparcamientoBicis);
+  $scope.LoadLayerAparcamientoBicis = function() { 
+          if (AparcamientoBicis.getVisible()==false) {
+              AparcamientoBicis.setVisible(true);
+              document.getElementById("legendAparcamientobicis").style.display = "block"; 
+              //$("#LayerAparcamientoBicis").css("background","#bed6d3");
+              // $("#LayerAparcamientoBicis").css("color","#424242");              
+              }              
+          else {
+              AparcamientoBicis.setVisible(false);
+              document.getElementById("legendAparcamientobicis").style.display = "none"; 
+              //$("#LayerAparcamientoBicis").css("background","#518ca3");
+              // $("#LayerAparcamientoBicis").css("color","#a4acc0");
+              }
+        };
           // INIT CONTEXT MENU
 
 var pin_icon = 'http://cdn.rawgit.com/jonataswalker/ol3-contextmenu/master/examples/img/pin_drop.png';

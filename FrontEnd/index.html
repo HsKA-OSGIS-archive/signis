@@ -75,11 +75,18 @@ float: left;
         font: italic 14px Verdana;
 
       }
+.scrollStyle::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+.scrollStyle::-webkit-scrollbar-track {
+  background: #ddd;
+}
       </style>
       
 </head>
 
-<body ng-app="NATURA" ng-controller="naturaController" class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top" style="padding-top: 50px !important;" >
+<body ng-app="NATURA" ng-controller="naturaController" class="fixed-nav sticky-footer bg-dark sidenav-toggled scrollStyle" id="page-top" style="padding-top: 50px !important;" >
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 50px !important;" id="mainNav">
     <img width=140 src="../static/img/signis.png">
@@ -128,24 +135,53 @@ float: left;
 
   </header>
  
-<div style="margin-left: 50px; min-height: calc(100vh - 50px) !important; padding-top: 0;">
+<div class="scrollStyle" style="margin-left: 50px; min-height: calc(100vh - 50px) !important; padding-top: 0;">
 <section id="home">
   <h3 style="color:black;">WELCOME to (S)IGNIS!</h3>
   <!--<div class="illustration"></div>-->
   <br><br>
   <p style="color:black; font-size:16px;">
-
-</p>
+    FIRE PREVENTION AND MANAGEMENT SERVICES​
+  </p>
+  
 </section>
 <section id="clients">
   <h3 style="color:#525252;">Information</h3>
   <!--<div class="illustrationInfo"></div>-->
   <br><br>
-  <p style="color:#525252; font-size:16px;"></p>
+  <p style="color:#525252; font-size:16px;">The main activity of our company is sensoring detecting early fires or hotspots and translate this
+    data to an online platform for fire management.
+    Our area of action focuses on the Valencian Community. This is due to the high concentration of
+    fire events in the region, especially in the summer season. As we can see in the previous image, forest fires are a potentially dangerous risk in this region of
+    the Iberian Peninsula. If we analyze the fire risk map of the Valencian Community (image below)
+    we can see that practically the entire region has a high risk of occurrence. That is why the need arises to create a system that allows improving both the prevention and the
+    management of forest fires. for this (S)IGNIS raises the idea of locating data collection sensors
+    (humidity, temperature, etc.) that allow the study of the Valencian mountains in order to generate
+    fire models and help the coordinating administrations to reduce the damages produced by a fire .
+    The idea is to generate a system that allows instant field information to be instantia ted in addition
+    to a later GIS analysis that allows a better management of the territory. In the following images
+    you can see a small outline of how the system works</p>
   </section>
 <section id="about">
   <h3 style="color:#d4d4d4;">About us</h3>
-  <p style="color:#d4d4d4; font-size:16px;"> </p>
+  <ul>
+    <li> Raquel Arcón    arra1013@hs-karlsruhe.de​</li>
+    <li> Carlos Bayarri   baca1024@hs-karlsruhe.de​</li>
+    <li> Jorge Hernández  hejo1036@hs-karlsruhe.de​</li>
+    <li> Raquel Luján   lura1011@hs-karlsruhe.de​</li>
+    <li> Jesús N. Sánchez   saje1016@hs-karlsruhe.de ​</li>
+  </ul>
+  <div> 
+    <h3> Degree: UPV </h3>
+    <p> Geomatics and surveying engineering</p>
+  </div>
+  <div> 
+    <h3> Master: UPV + HSKa</h3>
+    <p> Geomatics and geoinformation engineering</p>
+  </div>
+  <p style="color:#d4d4d4; font-size:16px;"> 
+   
+  </p>
   
     
 </section>
@@ -160,7 +196,7 @@ float: left;
 
 </section>
 </div>
-    <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='../static/js/jquery.min.js'></script>
   
     <script>
         function sendMail() {
@@ -250,9 +286,6 @@ float: left;
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>
     </a>
-
-    {% include 'forms/contentLogin.html' %}
-    <p id="textLogin" class="nav-link-text textLogin"></p>
      <!--
     {% if session['logged_in'] %}
     <p id="textLogin" class="textLogin">Bienvenido Administrador</p>

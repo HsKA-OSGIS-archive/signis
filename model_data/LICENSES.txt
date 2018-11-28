@@ -1,0 +1,2 @@
+All vector data obtained from IGN (BTN25 2006-2017 CC-BY 4.0 ign.es)
+DTM obtained from IGN (MDT25 CC-BY 4.0 scne.es)

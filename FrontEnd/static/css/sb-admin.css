@@ -471,7 +471,7 @@ footer.sticky-footer {
   height: 30px;
   background-color: rgba(29, 33, 39,0.6);
   color: ghostwhite;
-  line-height: 45px;
+  line-height: 30px;
 }
 
 @media (min-width: 992px) {

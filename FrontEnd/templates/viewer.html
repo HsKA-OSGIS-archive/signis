@@ -8,6 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>(S)IGNIS</title>
+  <link href="../static/css/style.sass" rel="stylesheet">
   <!-- Bootstrap core CSS-->
   <link href="../static/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom fonts for this template-->
@@ -122,10 +123,10 @@ float: left;
       }   
       .ol-geocoder.gcd-txt-container {
         position: fixed;
-        width: 150px;
+        width: 175px;
         height: 40px;
         top: 5px;
-        right: 90px;
+        right: 100px;
         box-sizing: border-box;
         border: 1px solid #101215;
         border-radius: 4px;
@@ -158,7 +159,7 @@ float: left;
         padding-right: 7.5px;
         cursor: pointer;
         color: ghostwhite;
-        background-color: #417d97 !important;
+        background-color: #384852 !important;
       }
       .moveSideButtonToolsOpened {
         position: fixed; top: 40%; right: 275px; font-size: 8px;z-index: 1;
@@ -277,12 +278,110 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   margin-left: auto;
   margin-right: auto; }
 
+
+/* BURGUER MANU */
+@import url("https://fonts.googleapis.com/css?family=Advent+Pro:100, 200, 400");
+* {
+  padding: 0;
+  margin: 0;
+}
+
+.container .menu-btn-1 {
+  width: 3rem;
+  height: 3rem;
+  display: block;
+  background-color: #384852;
+  border-radius: 50%;
+  position: relative;
+  -webkit-box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.5);
+}
+
+.container .menu-btn-1 span, .container .menu-btn-1 span:after, .container .menu-btn-1 span:before {
+  position: absolute;
+  top: 50%;
+  margin: -1px 0 0 -10px;
+  left: 50%;
+  width: 20px;
+  height: 2px;
+  background: #EAE9EC;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container .menu-block {
+  position: relative;
+}
+.container .menu-btn-1 {
+  margin: 0 1rem;
+  z-index: 1;
+}
+.container .menu-btn-1 span:after, .container .menu-btn-1 span:before {
+  content: "";
+  display: block;
+  transition: 0.2s;
+}
+.container .menu-btn-1 span:after {
+  transform: translateY(-5px);
+}
+.container .menu-btn-1 span:before {
+  transform: translateY(5px);
+}
+.container .menu-btn-active-1 span {
+  height: 0px;
+}
+.container .menu-btn-active-1 span:before {
+  transform: rotate(-45deg);
+}
+.container .menu-btn-active-1 span:after {
+  transform: rotate(45deg);
+}
+.container .menu a {
+  position: realtive;
+  display: inline-block;
+  color: #EAE9EC;
+  background-color: blue;
+  height: 1.7rem;
+  width: 1.7rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.2s;
+  position: absolute;
+  left: calc(20% + 10px);
+  top: calc(1rem - 5px);
+  z-index: 0;
+  background-color: #D73E3E;
+  -webkit-box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 1px 15px 0 rgba(0, 0, 0, 0.5);
+}
+.container .menu_active a:nth-of-type(1) {
+  transform: translate(120%, 120%);
+  transition: 0.4s;
+}
+.container .menu_active a:nth-of-type(2) {
+  transform: translate(170%, 0%);
+  transition: 0.4s;
+}
+.container .menu_active a:nth-of-type(3) {
+  transform: translate(120%, -120%);
+}
+
+
+
   </style>
 </head>
 
 <body class="fixed-nav sticky-footer bg-dark sidenav-toggled" id="page-top" ng-app="signis" ng-controller="signisController as ctrl">
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 50px !important;" id="mainNav">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" style="height: 50px !important;
+   box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;" id="mainNav">
     <img width=140 src="../static/img/signis.png">
         
       <ul class="navbar-nav ml-auto" style="margin-right: 70px;">
@@ -304,8 +403,8 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         margin-top: 0;margin-bottom: 0;padding-bottom: 0;        
         top: 0;text-align: center;left: 250px;width: 100px;">
           <a class="nav-link" href="templates/viewer.html">
-            <i class="fa fa-fw fa-globe"></i>
-            <span class="nav-link-text">viewer</span>
+            <i class="fa fa-fw fa-globe" style="color: #fff;"></i>
+            <span class="nav-link-text" style="color: #fff;">viewer</span>
           </a>
         </li> 
         <li class="nav-item" style="height: 50px;position: fixed;padding-top: 6px;        
@@ -324,35 +423,162 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
           </button>
           <div id="olMap" style="height:100%;width:100%; left:0;top:0; position: absolute; background-color: black;">
             
+            <div id="legendLayer" style="position: fixed;display: block;top: 65px;right: 15px;z-index: 9;height: auto;width: auto;    background-color: ghostwhite;">
+              <div id="headerLegendLayer" style="border-bottom: 1px black solid"><p>Legend</p></div>
+              <img id="imageLegendLayer" src="">
+            </div>
             <div class="lock-size" layout="row" layout-align="center center" style="position: fixed !important; top: 120px; left: 5px; z-index: 9;">
-              <md-fab-speed-dial ng-open="false" ng-direction="down" class="md-fling" aria-expanded="false">
-                <md-fab-trigger>
-                  <md-button aria-label="menu" class="md-fab md-warn" style="padding-top: 4px;">
-                    <i class="fa fa-fw fa-wrench" style="font-size: 30px; text-align: center; padding: initial;"></i>
-                  </md-button>
-                </md-fab-trigger>
-        
-                <md-fab-actions>
-                  <md-button aria-label="Twitter" class="md-fab md-raised md-mini" style="background-color: #F7D358 !important; padding-top: 4px;">
-                    <i class="fa fa-fw fa-free-code-camp" style="font-size: 20px; text-align: center; padding: initial;"></i>
-                  </md-button>
-                  <md-button aria-label="Facebook" class="md-fab md-raised md-mini" style="background-color: #F7D358 !important; padding-top: 4px;">
-                    <i class="fa fa-fw fa-fire" style="font-size: 20px; text-align: center; padding: initial;"></i>
-                  </md-button>
-                </md-fab-actions>
-              </md-fab-speed-dial>
+
+              <div>
+                <div class='menu-block'>
+                  <a href='#' class='menu-btn-1'>
+                    <span></span>
+                  </a>
+                  <nav class='menu'>
+                    <a href='#' class="md-icon-button test-tooltip" aria-label="...">
+                      <i class="fa fa-fw fa-free-code-camp"></i>
+                      <md-tooltip md-direction="right">...</md-tooltip>
+                    </a>
+                    <a href='#' class="md-icon-button test-tooltip" aria-label="...">
+                      <i class="fa fa-fw fa-fire"></i>
+                      <md-tooltip md-direction="right">...</md-tooltip>
+                    </a>
+                  </nav>
+                </div>
+              </div>
             </div>
           </div>
           <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4" styles="width: 350px;">
-            <md-toolbar class="md-theme-indigo" style="background-color: #417d97;">
-              <h1 id="titleSidenavLayers" class="md-toolbar-tools">Capas</h1>
+            <md-toolbar class="md-theme-indigo" style="background-color: #dc9e7c;">
+              <h1 id="titleSidenavLayers" class="md-toolbar-tools">Layers</h1>
             </md-toolbar>
-            <ul style="/*background-color:#1a3139 !important*/ padding: 25px; font-size:15px;">
-              <li id="LayerAparcamientoBicis" class="nav-item">
-                  <md-checkbox ng-click="LoadLayerAparcamientoBicis()">
-                      Aparcamiento de bicis
+            <ul id="layerList" style="/*background-color:#1a3139 !important*/ padding: 25px; font-size:15px;">
+              <li id="LayerZonasActuacionUrgente" class="nav-item">
+                  <md-checkbox ng-click="LoadLayerZonasActuacionUrgente()">
+                    Areas of urgent action
                   </md-checkbox>
               </li> 
+              <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerPlanesLocalesQuemas()">
+                    Local fire plans
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires46()">
+                  Fires 2015
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires47()">
+                  Fires 2014
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires48()">
+                  Fires 2013
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires49()">
+                  Fires 2012
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires50()">
+                  Fires 2011
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires51()">
+                  Fires 2010
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires52()">
+                  Fires 2009
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires53()">
+                  Fires 2008
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires54()">
+                  Fires 2007
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires55()">
+                  Fires 2006
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires56()">
+                  Fires 2005
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires57()">
+                  Fires 2004
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires58()">
+                  Fires 2003
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires59()">
+                  Fires 2002
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires60()">
+                  Fires 2001
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires61()">
+                  Fires 2000
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires62()">
+                  Fires 1999
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires63()">
+                  Fires 1998
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires64()">
+                  Fires 1997
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires65()">
+                  Fires 1996
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires66()">
+                  Fires 1995
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires67()">
+                  Fires 1994
+                </md-checkbox>
+            </li> 
+            <li id="LayerPlanesLocalesQuemas" class="nav-item">
+                <md-checkbox ng-click="LoadLayerFires68()">
+                  Fires 1993
+                </md-checkbox>
+            </li>
+
                 
             </ul> 
           </md-sidenav>
@@ -362,12 +588,12 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   </div>
   <div id="containerCanvas" style="max-width: 500px; max-height: 300px; position: fixed; z-index: -10;"></div>
     <footer class="sticky-footer">
-      <div class="container">                               
-        <div class="text-center">
-          <div style="display: none; position: fixed; bottom: -5px; right: 650px; ">Coordenadas WGS84 geográficas	</div>	
-          <div id="mouse-position2" style="display: none; position: fixed; bottom: -5px; right: 500px;">	</div>	
-          <div style="display: none; position: fixed; bottom: -5px; right: 450px;">UTM </div>
-          <div id="mouse-position3" style="display: none; position: fixed; bottom: -5px; right: 315px; "> </div>
+      <div class="container" style="margin-left: 0px !important;justify-content: left;">                               
+        <div class="text-center" style="display: flex; flex-direction: row;">
+          <div style="position: relative; margin-right: 15px;">Coordenadas WGS84 geográficas</div>	
+          <div id="mouse-position2" style="position: relative;margin-right: 15px;">	</div>	
+          <div style="position: relative;margin-right: 15px; ">UTM </div>
+          <div id="mouse-position3" style="position: relative;margin-right: 15px;"> </div>
         </div>
       </div>
     </footer>
@@ -410,6 +636,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   
   <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
   <script>
+  $('.menu-btn-1').on('click', function(e){
+  e.preventDefault();
+  $(this).toggleClass('menu-btn-active-1');
+  $('.menu').toggleClass('menu_active');
+});
+</script>
+  <script>
   
   //	ANGULAR	    
   var sesion = angular.module('signis', ['ngMaterial', 'ngMessages']); 
@@ -419,7 +652,8 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
       this.bottomDirections = ['down', 'right'];
 
       this.isOpen = false;
-
+      var capas_wms = [];
+      var capas_geoserver = [];
       this.availableModes = ['md-fling', 'md-scale'];
       this.selectedMode = 'md-fling';
 
@@ -444,24 +678,6 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     
     window.app = {};
     var app = window.app;
-    //PRINT PDF
-    app.print = function(opt_options) {
-		  var options = opt_options || {};
-		  var button = document.createElement('button');
-		  button.className = 'print';
-		  var this_ = this;
-		  var print = function() {
-     
-		  };
-		  button.addEventListener('click', print, false);
-		  button.addEventListener('touchstart', print, false);
-		  var element = document.createElement('div');
-		  element.className = 'print ol-unselectable ol-control';
-		  element.appendChild(button);  
-		  ol.control.Control.call(this, {element: element,target: options.target });
-		};
-		ol.inherits(app.print, ol.control.Control);
-    // PRINT PDF
 		//CENTRAR//
 		  app.centrar = function(opt_options) {
 		  var options = opt_options || {};
@@ -470,9 +686,9 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
 		   button.className = 'centrar';
 		  var this_ = this;
 		  var centrar = function() {
-			var center = [-412728.56, 4924308.52];
+			var center = [-77934.38, 4831972.59];
       olMap.getView().setCenter(center);
-			olMap.getView().setZoom(7);
+			olMap.getView().setZoom(8.25);
 		  };
 		  button.addEventListener('click', centrar, false);
 		  button.addEventListener('touchstart', centrar, false);
@@ -523,31 +739,30 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     controls: [mousePositionControl2,mousePositionControl3],
     view: new ol.View({
       projection: myProjection,
-      center: [-412728.56, 4924308.52],
+      center: [-77934.38, 4831972.59],
       zoom: 3
     }),
   target: document.getElementById('overviewMap'),
   });
   var olMap = new ol.Map({
     interactions: ol.interaction.defaults().extend([new ol.interaction.DragRotateAndZoom()]),
-    layers: [capabase, aerial, OSM],
+    layers: [OSM],
     view: new ol.View({
         projection: myProjection,
-        center: [-412728.56, 4924308.52],
-        zoom: 6.5
+        center: [-77934.38, 4831972.59],
+        zoom: 8.25
     }),
     controls: ol.control.defaults().extend ([
       new ol.control.ScaleLine(),            
       mousePositionControl2,mousePositionControl3,
       new ol.control.FullScreen(),
       new app.centrar(),
-      new app.print(),
     ]),
     target: document.getElementById('olMap'),
     });
     // var ctrl = new ol.control.CanvasScaleLine({	});
     // olMap.addControl(ctrl);
-    olMap.addControl(new ol.control.LayerSwitcherImage());
+    // olMap.addControl(new ol.control.LayerSwitcherImage());
       // Change VIEW
       var view = olMap.getView();
       view.on("change:center", function(e) {
@@ -558,6 +773,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
       });
       olMap.on('click', function(evt) {
         res = olMap.getView().getResolution();
+        identificar(evt);
       }); 
       var vectorSource = new ol.source.Vector();
       var vectorLayer = new ol.layer.Vector({
@@ -582,29 +798,182 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
 
   var ZonasActuacionUrgente = new ol.layer.Tile({
     source: new ol.source.TileWMS({
-      url: 'http://carto.icv.gva.es/arcgis/services/tm_medio_ambiente/prevencion_de_incendios/MapServer/WmsServer?',
+      url: 'http://carto.icv.gva.es/arcgis/services/tm_medio_ambiente/prevencion_de_incendios/MapServer/WMSServer',
       params: {
-        'LAYERS': '16', 'STYLES': 'default',
-        'TILED': true, 'format': 'image/png', 'VERSION': '1.3.0'
+        'LAYERS': '0', 'STYLES': 'default', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
       },
-    }), title: 'AparcaBicis', description: 'OpenDataValencia', visible: false, 
+    }), title: 'ZonasActuacionUrgente', description: 'OpenDataValencia', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
     baseLayer: false, displayInLayerSwitcher: false
   });
-  olMap.addLayer(AparcamientoBicis);
-  $scope.LoadLayerAparcamientoBicis = function() { 
-          if (AparcamientoBicis.getVisible()==false) {
-              AparcamientoBicis.setVisible(true);
-              document.getElementById("legendAparcamientobicis").style.display = "block"; 
-              //$("#LayerAparcamientoBicis").css("background","#bed6d3");
-              // $("#LayerAparcamientoBicis").css("color","#424242");              
+  ZonasActuacionUrgente.setZIndex(999);
+  olMap.addLayer(ZonasActuacionUrgente);
+  capas_wms.push(ZonasActuacionUrgente);
+  $scope.LoadLayerZonasActuacionUrgente = function() { 
+          if (ZonasActuacionUrgente.getVisible()==false) {
+              ZonasActuacionUrgente.setVisible(true);             
               }              
           else {
-              AparcamientoBicis.setVisible(false);
-              document.getElementById("legendAparcamientobicis").style.display = "none"; 
-              //$("#LayerAparcamientoBicis").css("background","#518ca3");
-              // $("#LayerAparcamientoBicis").css("color","#a4acc0");
+              ZonasActuacionUrgente.setVisible(false);
               }
         };
+  var PlanesLocalesQuemas = new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://carto.icv.gva.es/arcgis/services/tm_medio_ambiente/prevencion_de_incendios/MapServer/WMSServer',
+      params: {
+        'LAYERS': '1', 'STYLES': 'default', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'PlanesLocalesQuemas', description: 'OpenDataValencia', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  PlanesLocalesQuemas.setZIndex(999);
+  olMap.addLayer(PlanesLocalesQuemas);
+  capas_wms.push(PlanesLocalesQuemas);
+  $scope.LoadLayerPlanesLocalesQuemas = function() { 
+    if (PlanesLocalesQuemas.getVisible()==false) { PlanesLocalesQuemas.setVisible(true);  }              
+    else { PlanesLocalesQuemas.setVisible(false); }
+  };
+
+        // Capas de incendios forestales
+        var i = 46;
+        var j = 69;
+        var idName = []
+        for (i; i<j; i++) {
+          idName.push(i);
+        
+          var fire = new ol.layer.Tile({
+            source: new ol.source.TileWMS({
+              url: 'http://carto.icv.gva.es/arcgis/services/tm_medio_ambiente/prevencion_de_incendios/MapServer/WMSServer',
+              params: {
+                'LAYERS': i, 'STYLES': 'default', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+              },
+            }), name: 'fire' + i, title: 'fire' + i, description: 'OpenDataValencia', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
+            baseLayer: false, displayInLayerSwitcher: false
+          });
+          fire.setZIndex(999);
+          olMap.addLayer(fire);
+          capas_wms.push(fire);
+          // console.log(fire.getProperties());
+          }
+  var layers = olMap.getLayers();
+  var imgLegend = 'http://carto.icv.gva.es/arcgis/services/tm_medio_ambiente/prevencion_de_incendios/MapServer/WmsServer?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=';
+  $scope.LoadLayerFires46 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire46') { 
+        if (layer.getVisible()==false) { layer.setVisible(true); 
+        document.getElementById('imageLegendLayer').src = imgLegend + '46';}
+        else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires47 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire47') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '47'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires48 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire48') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '48'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires49 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire49') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '49'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires50 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire50') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '50'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires51 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire51') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '51'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires52 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire52') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '52'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires53 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire53') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '53'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires54 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire54') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '54'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires55 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire55') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '55'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires56 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire56') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '56'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires57 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire57') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '57'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires58 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire58') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '58'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires59 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire59') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '59'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires60 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire60') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '60'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires61 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire61') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '61'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires62 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire62') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '62'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires63 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire63') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '63'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires64 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire64') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '64'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires65 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire65') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '65'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires66 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire66') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '66'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires67 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire67') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '67'; } else { layer.setVisible(false); } }
+    });
+  };
+  $scope.LoadLayerFires68 = function() { 
+    layers.forEach(layer => {
+      if (layer.getProperties().name == 'fire68') { if (layer.getVisible()==false) { layer.setVisible(true); document.getElementById('imageLegendLayer').src = imgLegend + '68'; } else { layer.setVisible(false); } }
+    });
+  };
           // INIT CONTEXT MENU
 
 var pin_icon = 'http://cdn.rawgit.com/jonataswalker/ol3-contextmenu/master/examples/img/pin_drop.png';
@@ -740,7 +1109,7 @@ function marker(obj) {
           provider: 'osm',
           key: '__some_key__',
           lang: 'es', //en-US, fr-FR
-          placeholder: 'Buscar...',
+          placeholder: 'Search...',
           targetType: 'text-input',
           limit: 5,
           keepOpen: true,
@@ -755,7 +1124,100 @@ function marker(obj) {
             }, 1000);         
         });
         // END GEOCODER
+        //INIT IDENTIFICAR
+        function identificar(evt){
+          if (capas_wms){
+          for (var i=0;i<capas_wms.length;i++){
+              if(capas_wms[i].get('visible')==true){
+              var layerName = capas_wms[i].I.title;
+              var viewResolution =  (olMap.getView().getResolution());
+              var url = capas_wms[i].getSource().getGetFeatureInfoUrl( evt.coordinate, viewResolution, 'EPSG:3857', {'INFO_FORMAT': 'application/geojson'});				  	
+              var info = '';
+              var container = document.getElementById('info');
+                  if (url) {
+                    $http({  
+                    method : "GET",
+                    url : url,
+                    data: {
+                            service: 'WMS',
+                            version: '1.3.0',
+                            request: 'GetFeature',
+                            outputFormat:'application/geojson',
+                        },
+                    }).then(function mySuccess(response) {
+                      var feature = response.data.features[0];
+                      if (feature != undefined) {
+                        var properties = feature.properties;
+                        console.log(properties);
+                        var geometry = feature.geometry;
+                        console.log(layerName);
+                        if (layerName == 'ZonasActuacionUrgente') {
+                          var name = properties.Nombre;
+                          var area = properties.Áreaha;
+                          info = name;
+                        }
+                        if (layerName = 'PlanesLocalesQuemas') {
+                          var municipio = properties.Municipio;
+                          info = municipio;
+                        }
+                        
+                        $mdToast.show($mdToast.simple().textContent(info).position('bottom right').hideDelay(3000));
+                      }
+                      }, function myError(response) {
+                          console.log(response);
+                    });
+                  }
+          }
+                  }
+          }
+          if (capas_geoserver){			
+            for (var i=0;i<capas_geoserver.length;i++){
+                if(capas_geoserver[i].get('visible')==true){  
+                var viewResolution =  (olMap.getView().getResolution());
+                var url = capas_geoserver[i].getSource().getGetFeatureInfoUrl( evt.coordinate, viewResolution, 'EPSG:25830', {'INFO_FORMAT': 'application/json'});				  	
+                var info = '';
+                var container = document.getElementById('info');
+                    if (url) {
+                $http({  
+                method : "GET",
+                url : url,
+                data: {
+                        service: 'WMS',
+                        version: '1.1.0',
+                        request: 'GetFeatureInfo',
+                        maxFeatures: 50,
+                        outputFormat:'application/json'
+                    },
+                headers: {'Content-Type': 'application/json'}
+              }).then(function mySuccess(response) {
+                TextInfo.innerHTML = "";
+                  var feature = response.data.features[0];
+                  if (feature != undefined) {
+                    var properties = feature.properties;
+                    var geometry = feature.geometry;
+                    for (var i in properties) {
 
+                      TextInfo.innerHTML += ""+i+": "+properties[i]+"<br>";
+                      if (i = "target") {
+                        coor.innerHTML = properties[i];
+                      }
+                      if (i = "name") {
+                        street.innerHTML = properties[i];
+                      }
+
+                    }
+                  } else {
+                  }
+                }, function myError(response) {
+                    console.log(response);
+              });
+            }
+            }
+                    }
+            }
+
+          }
+          // FIN IDENTIFICAR
      }]); 
  
   </script>

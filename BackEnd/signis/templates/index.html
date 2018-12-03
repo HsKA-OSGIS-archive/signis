@@ -1,0 +1,18 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    {% block extrastatic %}
+    {% endblock %}
+    <title>{% block title %} (S)IGNIS {% endblock %}</title>
+</head>
+<body>
+    {% csrf_token %}
+    {% block content %}
+        <h4>    holiiii estas en el index     </h4>
+    {% endblock %}
+    {% block extrajs %}
+    {% endblock %}
+</body>
+</html>

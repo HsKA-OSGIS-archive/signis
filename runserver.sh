@@ -43,17 +43,6 @@ while true; do
     esac
 done
 
-# echo "Configuring application connection..."
-# echo "This is only for development mode. Your user and password are in your local server. Commanly, the default user for postgres is postgres."
-# echo "What's the postgres user:"
-# read -p namePostgres
-# echo "What's the postgres password:"
-# read -sp passPostgres
-# sed -i "81s/.*/        'NAME': 'SIGNIS',/" settings.py
-# sed -i "82s/.*/        'USER': '$namePostgres',/" settings.py
-# sed -i "83s/.*/        'PASSWORD': '$passPostgres',/" settings.py
-# echo "Application confidured for postgres user: $namePostgres"
-
 cd ..
 # Migrate relations
 echo "Migrating relations..."

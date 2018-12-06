@@ -444,9 +444,9 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
                     <span></span>
                   </a>
                   <nav class='menu'>
-                    <a href='#' class="md-icon-button test-tooltip" aria-label="...">
+                    <a class="md-icon-button test-tooltip" aria-label="..." ng-click="map_drawFirewall()">
                       <i class="fa fa-fw fa-free-code-camp"></i>
-                      <md-tooltip md-direction="right">...</md-tooltip>
+                      <md-tooltip md-direction="right">Firewalls</md-tooltip>
                     </a>
                     <a href='#' class="md-icon-button test-tooltip" aria-label="...">
                       <i class="fa fa-fw fa-fire"></i>
@@ -462,6 +462,11 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
               <h1 id="titleSidenavLayers" class="md-toolbar-tools">Layers</h1>
             </md-toolbar>
             <ul id="layerList" style="/*background-color:#1a3139 !important*/ padding: 25px; font-size:15px;">
+              <li id="LayerFirewalls" class="nav-item">
+                  <md-checkbox ng-click="LoadLayerFirewalls()">
+                    Firewalls
+                  </md-checkbox>
+              </li>
               <li id="LayerZonasActuacionUrgente" class="nav-item">
                   <md-checkbox ng-click="LoadLayerZonasActuacionUrgente()">
                     Areas of urgent action
@@ -651,7 +656,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   $('.menu').toggleClass('menu_active');
 });
 </script>
-  <script>
+  <script type="text/javascript">
   
   //	ANGULAR	    
   var sesion = angular.module('signis', ['ngMaterial', 'ngMessages']); 
@@ -753,9 +758,17 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     }),
   target: document.getElementById('overviewMap'),
   });
+ 
+
+  var source = new ol.source.Vector({wrapX: false});
+
+    var vector = new ol.layer.Vector({
+        source: source
+    }); 
+    
   var olMap = new ol.Map({
     interactions: ol.interaction.defaults().extend([new ol.interaction.DragRotateAndZoom()]),
-    layers: [OSM],
+    layers: [OSM, vector],
     view: new ol.View({
         projection: myProjection,
         center: [-77934.38, 4831972.59],
@@ -773,6 +786,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     // olMap.addControl(ctrl);
     // olMap.addControl(new ol.control.LayerSwitcherImage());
       // Change VIEW
+    
       var view = olMap.getView();
       view.on("change:center", function(e) {
           overviewMap.getView().setCenter(olMap.getView().getCenter());
@@ -804,6 +818,107 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
       /* LAYERS */
       // Aparcamiento bicis:
   // http://mapas.valencia.es/lanzadera/opendata/aparcabicis/wms?
+  
+  //var Firewalls = new ol.layer.Tile({
+    //source: new ol.source.TileWMS({
+      //url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      //params: {
+        //'LAYERS': 'signis_osgis:firewalls_firewalls', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      //},
+   // }), title: 'Firewalls', description: 'Firewalls from CCVV', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
+   // baseLayer: false, displayInLayerSwitcher: false
+  //});
+  
+  var lib_openLayersLabelUtilities_createTextStyleFunction = function(campo, col) {
+      return function(feature, color) {
+          var estilo=new ol.style.Style({
+                image: new ol.style.Circle({
+                    radius: 3,
+                    fill: new ol.style.Fill({
+                      color: '#0000ff'
+                    })
+                  }), 
+                stroke: new ol.style.Stroke({
+                      color: '#80ff00',
+                      width: 2
+                    }),
+                fill: new ol.style.Fill({
+                        color: '#ff6666'
+                      }),
+                text: createTextStyle(feature, campo, col)
+          });
+        return [estilo];
+      }
+    };
+  
+  var sourceFirewalls = new ol.source.Vector({
+            format: new ol.format.GeoJSON(),
+            url: function(extent) {
+                return 'http://localhost:8080/geoserver/wfs/' + '?service=WFS&' +
+                'version=1.1.0&request=GetFeature&typename=' + 'signis_osgis:firewalls_firewalls' + '&' +
+                'outputFormat=application/json&' +
+                'srsname=EPSG:' + '3857' + '&bbox=' + extent.join(',') + ',EPSG:' + '3857';
+            },
+            strategy: ol.loadingstrategy.bbox
+        });
+
+    var Firewalls = new ol.layer.Vector({
+        source: sourceFirewalls,
+        title: 'Firewalls', description: 'Firewalls from CCVV', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
+        baseLayer: false, displayInLayerSwitcher: false,
+        style: lib_openLayersLabelUtilities_createTextStyleFunction('gid','#80ff00')
+    });
+  
+  Firewalls.setZIndex(999);
+  olMap.addLayer(Firewalls);
+  capas_wms.push(Firewalls);
+  $scope.LoadLayerFirewalls = function() { 
+          if (Firewalls.getVisible()==false) {
+              Firewalls.setVisible(true);             
+              }              
+          else {
+              Firewalls.setVisible(false);
+              }
+        };
+        
+    function lib_openLayersUtilities_getLayersList(mapa) {
+        //devuelve todas las capas del mapa
+        var allLayers = [];
+        var mapLayers = mapa.getLayers().getArray();
+        
+        mapLayers.forEach(function (layer, i) {
+            if (layer instanceof ol.layer.Group) {
+                layer.getLayers().getArray().forEach(function(sublayer, j, layers) {
+                    allLayers.push(sublayer);
+                })
+            } else if ( !(layer instanceof ol.layer.Group)) {
+                    allLayers.push(layer);
+            }
+        });
+        return allLayers;
+    }
+
+    function lib_openLayersUtilities_getLayerObjectByTitle(mapa,titulo_capa){
+        //Devuelve el objeto capa que coincide con el título de la capa
+        var capas = lib_openLayersUtilities_getLayersList(mapa);
+        for (var i = 0, len = capas.length; i < len; i++) {
+              var capa=capas[i];
+              if (capa.I.title==titulo_capa){
+                  return capa;
+              }
+        }
+    }
+    
+    $scope.map_drawFirewall = function() {
+        var WFS_Firewalls = lib_openLayersUtilities_getLayerObjectByTitle(olMap,'Firewalls');
+        var firewallsSource = WFS_Firewalls.getSource();
+                
+        draw_lineString = new ol.interaction.Draw({
+            source: source,
+            type: ('LineString')
+          });
+        olMap.addInteraction(draw_lineString);
+    };
 
   var ZonasActuacionUrgente = new ol.layer.Tile({
     source: new ol.source.TileWMS({
@@ -1227,7 +1342,7 @@ function marker(obj) {
 
           }
           // FIN IDENTIFICAR
-     }]); 
+     }]);
  
   </script>
 </body>

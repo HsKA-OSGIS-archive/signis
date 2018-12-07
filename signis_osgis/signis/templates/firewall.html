@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+Firewall
+{% endblock %}
+{% block navbar%}
+{% endblock %}
+{% block content %}
+<style>
+  body {
+    background-color: rgb(56, 72, 82);
+  }
+</style>
+<form method="post">
+    {% csrf_token %}
+     <!-- Grid row -->
+    <div class="row" style="position: absolute; width: 100%; height: 100%; transform: translateY(20%); justify-content: center;">
+        <!-- Grid column -->
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body" style="background-color: #fff">
+                    <h3 class="text-center default-text py-3">Firewall</h3>
+                    <!--Body-->
+
+                    <div class="md-form">
+                        <input type="text" id="defaultForm-email" class="form-control" name="Coordinates">
+                        <label for="defaultForm-email">Coordinates</label>
+                    </div>
+
+                    <div class="md-form">
+                        <input type="text" id="defaultForm-pass" class="form-control" name="Type">
+                        <label for="defaultForm-pass">Type</label>
+                    </div>
+
+                    <div class="md-form">
+                        <input type="text" id="defaultForm-pass" class="form-control" name="Description">
+                        <label for="defaultForm-pass">Description</label>
+                    </div>
+
+
+
+                    <div class="text-center">
+                        <button class="btn btn-default waves-effect waves-light">Insert</button>
+
+                        <a href="{% url 'index' %}">
+                            <span class="btn btn-default waves-effect waves-light">Modify</span>
+                        </a>
+
+                        <a href="{% url 'index' %}">
+                            <span class="btn btn-default waves-effect waves-light">Remove</span>
+                        </a>
+
+                        <a href="{% url 'index' %}">
+                            <span class="btn btn-default waves-effect waves-light">Back</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+{% endblock %}
+

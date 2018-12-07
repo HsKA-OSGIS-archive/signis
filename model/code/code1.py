@@ -45,15 +45,12 @@ def vector(input,output,values,rules,name):
 	QgsMapLayerRegistry.instance().addMapLayers([layer])
 
 	features=layer.getFeatures()
-	f=features.next()
-	f.attributes()
-
-	d=f.fields().indexFromName('d')
 
 	layer.startEditing()
 	for feat in features:
+	  d = feat.fieldNameIndex("d")
 	  layer.changeAttributeValue(feat.id(), d, distance)
-
+		
 	layer.commitChanges()
 	print "field modifycd "
 
@@ -85,14 +82,15 @@ values5 = [500,1000,1500,2000]
 output = ""
 rules = ""
 
-#vector(input1,output,values1,rules,name1)
-#vector(input2,output,values2,rules,name2)
-#print "vector 2"
-#vector(input3,output,values3,rules,name3)
-#print "vector 3"
-#vector(input4,output,values4,rules,name4)
-#print "vector 4"
-#vector(input5,output,values5,rules,name5)
-#print "vector 5"
+vector(input1,output,values1,rules,name1)
+print "vector 1"
+vector(input2,output,values2,rules,name2)
+print "vector 2"
+vector(input3,output,values3,rules,name3)
+print "vector 3"
+vector(input4,output,values4,rules,name4)
+print "vector 4"
+vector(input5,output,values5,rules,name5)
+print "vector 5"
 
 QgsApplication.exitQgis() 

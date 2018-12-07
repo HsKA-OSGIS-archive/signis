@@ -1,0 +1,5 @@
+0 thru 5 = 1
+5.1 thru 8 = 2
+8.1 thru 12 = 3
+* = NULL
+

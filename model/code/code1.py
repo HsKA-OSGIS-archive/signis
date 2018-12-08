@@ -30,13 +30,15 @@ def vector(input,output,values,rules,name):
     
     for i in range(len(values)):
 
+	val = []
+
         distance = values[i]
         out = "../model_data/vector_data/b/"+name+"_b_"+str(distance)+".shp"
         
         processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, False, out)
 	print "buffer"
         
-        out1 = "../model_data/vector_data/f/"+name+"f"+str(distance)+".shp"
+        out1 = "../model_data/vector_data/f/"+name+"_f_"+str(distance)+".shp"
         
         processing.runalg('qgis:addfieldtoattributestable', out, "d", 1, 5, 0, out1)
 	print "field"
@@ -52,7 +54,21 @@ def vector(input,output,values,rules,name):
 	  layer.changeAttributeValue(feat.id(), d, distance)
 		
 	layer.commitChanges()
-	print "field modifycd "
+	print "field modified"
+
+	val.append(distance)
+	val.append(out1)
+	buffer.append(val)
+
+    for j in range(len(buffer)-1):
+	print "enter"
+	dis = buffer[j+1][0]
+	input1 = buffer[j][1]
+	input2 = buffer[j+1][1]
+	print dis, input1, input2
+	out2="../model_data/vector_data/d/"+name+"_d_"+str(dis)+".shp"
+        
+        processing.runalg('qgis:difference', input2, input1, True, out2)
 
 # 1 - cities
 input1 = "../model_data/vector_data/cities.shp"
@@ -74,7 +90,7 @@ input4 = "../model_data/vector_data/water.shp"
 name4 = "water"
 values4 = [50,100,200,400]
 
-# 5 - water
+# 5 - water points
 input5 = "../model_data/vector_data/water_points.shp"
 name5 = "water_points"
 values5 = [500,1000,1500,2000]
@@ -82,15 +98,15 @@ values5 = [500,1000,1500,2000]
 output = ""
 rules = ""
 
-vector(input1,output,values1,rules,name1)
-print "vector 1"
-vector(input2,output,values2,rules,name2)
-print "vector 2"
-vector(input3,output,values3,rules,name3)
-print "vector 3"
-vector(input4,output,values4,rules,name4)
-print "vector 4"
-vector(input5,output,values5,rules,name5)
-print "vector 5"
+#vector(input1,output,values1,rules,name1)
+#print "vector 1"
+#vector(input2,output,values2,rules,name2)
+#print "vector 2"
+#vector(input3,output,values3,rules,name3)
+#print "vector 3"
+#vector(input4,output,values4,rules,name4)
+#print "vector 4"
+#vector(input5,output,values5,rules,name5)
+#print "vector 5"
 
 QgsApplication.exitQgis() 

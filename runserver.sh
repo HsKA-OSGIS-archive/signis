@@ -24,12 +24,27 @@ done
 
 cd signis
 cd signis
+# Conf database
+while true; do
+    read -p "Do you wish to create a database?" yn
+    case $yn in
+        [Yy]* ) echo "Configuring database..."; 
+		echo "This is only for development mode.";
+		read -p "What's the postgres user: " namePostgres;
+		read -p  "The default database name is 'signis_osgis'. Write the same name if the database is called like 'signis_osgis' or set another name for the database:" databasePostgres;
+		sudo -u $namePostgres createdb $databasePostgres;
+		echo "Database created for postgres user: $namePostgres";
+		break;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+done
 # Conf app connection
 while true; do
     read -p "Do you wish to configure the application connection?" yn
     case $yn in
         [Yy]* ) echo "Configuring application connection..."; 
-		echo "This is only for development mode. Your user and password are in your local server. Commanly, the default user for postgres is postgres.";
+		echo "This is only for development mode. Your user and password are in your local server. Commonly, the default user for postgres is postgres.";
 		read -p "What's the postgres user: " namePostgres;
 		read -sp "What's the postgres password: " passPostgres;
 		read -p  "The default database name is 'signis_osgis'. Write the same name if the database is called like 'signis_osgis' or set another name for the database:" databasePostgres

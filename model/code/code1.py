@@ -27,6 +27,7 @@ Processing.initialize()
 def vector(input,output,values,rules,name):
     
     buffer = []
+    merge = []
     
     for i in range(len(values)):
 
@@ -69,6 +70,19 @@ def vector(input,output,values,rules,name):
 	out2="../model_data/vector_data/d/"+name+"_d_"+str(dis)+".shp"
         
         processing.runalg('qgis:difference', input2, input1, True, out2)
+	merge.append(out2)
+
+    out3="../model_data/vector_data/m/"+name+"_m.shp"
+
+    merge.append(buffer[0][1])
+    processing.runalg('qgis:mergevectorlayers', merge,out3)
+ 
+    out4 = "../model_data/raster_data/raw/"+name+".tif"
+
+    #processing.runalg('gdalogr:rasterize', out3,'d',1,1000.0,1000.0,None,False,5,None,4,75.0,6.0,1.0,False,2,None,out4)
+
+    #processing.runalg('gdalogr:rasterize', vector,'d',1,100.0,100.0,None,False,5,None,4,75.0,6.0,1.0,False,2,None,output)
+    
 
 # 1 - cities
 input1 = "../model_data/vector_data/cities.shp"
@@ -106,7 +120,7 @@ rules = ""
 #print "vector 3"
 #vector(input4,output,values4,rules,name4)
 #print "vector 4"
-#vector(input5,output,values5,rules,name5)
-#print "vector 5"
+vector(input5,output,values5,rules,name5)
+print "vector 5"
 
 QgsApplication.exitQgis() 

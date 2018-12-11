@@ -32,16 +32,15 @@ def vector(input,output,values,rules,name):
     for i in range(len(values)):
 
 	val = []
-
         distance = values[i]
         out = "../model_data/vector_data/b/"+name+"_b_"+str(distance)+".shp"
         
-        processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, False, out)
+        processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, True, out)
 	print "buffer"
         
         out1 = "../model_data/vector_data/f/"+name+"_f_"+str(distance)+".shp"
         
-        processing.runalg('qgis:addfieldtoattributestable', out, "d", 1, 5, 0, out1)
+        processing.runalg('qgis:addfieldtoattributestable', out, "d", 1, 10, 5, out1)
 	print "field"
 
 	layer=QgsVectorLayer(out1,"l","ogr")
@@ -72,17 +71,26 @@ def vector(input,output,values,rules,name):
         processing.runalg('qgis:difference', input2, input1, True, out2)
 	merge.append(out2)
 
-    out3="../model_data/vector_data/m/"+name+"_m.shp"
+    out3 = "../model_data/vector_data/m/"+name+"_m.shp"
 
     merge.append(buffer[0][1])
     processing.runalg('qgis:mergevectorlayers', merge,out3)
  
     out4 = "../model_data/raster_data/raw/"+name+".tif"
 
-    #processing.runalg('gdalogr:rasterize', out3,'d',1,1000.0,1000.0,None,False,5,None,4,75.0,6.0,1.0,False,2,None,out4)
+    layer=QgsVectorLayer(out3,"l","ogr")
+    QgsMapLayerRegistry.instance().addMapLayers([layer])
 
-    #processing.runalg('gdalogr:rasterize', vector,'d',1,100.0,100.0,None,False,5,None,4,75.0,6.0,1.0,False,2,None,output)
-    
+    extent = layer.extent()
+    xmin = extent.xMinimum()
+    xmax = extent.xMaximum()
+    ymin = extent.yMinimum()
+    ymax = extent.yMaximum()
+
+    processing.runalg('gdalogr:rasterize', out3,'d',1,1.0,1.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),False,5,None,4,75.0,6.0,1.0,False,2,None,out4)
+
+    out5 = "../model_data/raster_data/reclass/"+name+".tif"
+    processing.runalg("grass7:r.reclass", out4,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out5)
 
 # 1 - cities
 input1 = "../model_data/vector_data/cities.shp"
@@ -108,6 +116,7 @@ values4 = [50,100,200,400]
 input5 = "../model_data/vector_data/water_points.shp"
 name5 = "water_points"
 values5 = [500,1000,1500,2000]
+rules5 = "../model_data/rules/water_points.txt"
 
 output = ""
 rules = ""
@@ -120,7 +129,7 @@ rules = ""
 #print "vector 3"
 #vector(input4,output,values4,rules,name4)
 #print "vector 4"
-vector(input5,output,values5,rules,name5)
+vector(input5,output,values5,rules5,name5)
 print "vector 5"
 
 QgsApplication.exitQgis() 

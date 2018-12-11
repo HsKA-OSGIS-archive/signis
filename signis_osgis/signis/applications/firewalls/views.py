@@ -5,12 +5,10 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
 from applications.firewalls.models import firewalls
+from applications.firewalls.forms import FirewallsForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 # Create your views here.
-def index(request):
-    return HttpResponse("Index")
-
 class firewalls_select(ListView):
     model = firewalls
     #template_name = 'mascota/mascota_list.html'
@@ -18,8 +16,8 @@ class firewalls_select(ListView):
 
 class firewalls_insert(CreateView):
     model = firewalls
-    #form_class = MascotaForm
-    #template_name = 'mascota/mascota_form.html'
+    form_class = FirewallsForm
+    template_name = 'templates/firewalls.html'
     #success_url = reverse_lazy('mascota:mascota_listar')
 
 

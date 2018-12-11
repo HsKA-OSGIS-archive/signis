@@ -45,7 +45,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
   <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
   <!-- OL-ext -->
-<link rel="stylesheet" href="../static/css/ol-ext.css" />
+<link rel="stylesheet" href="../static/dist/ol-ext.css" />
   <style>
   
   .navbar-expand-lg .navbar-nav .nav-link{
@@ -430,14 +430,21 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
           <button id="idMoveSideButtonLayers" mat-mini-fab class="moveSideButtonLayersClosed" ng-click="openSidenavLayers(evt);">
             <i class="material-icons">layers</i>
           </button>
+          <div class="row">
+                <div class="col-lg-12">
+                    <div class="tab-content" >
+                         {% include 'templates/firewalls.html' %}
+                    </div>
+                </div>
+             </div>
           <div id="olMap" style="height:100%;width:100%; left:0;top:0; position: absolute; background-color: black;">
             
             <div id="legendLayer" style="position: fixed;display: block;top: 65px;right: 15px;z-index: 9;height: auto;width: auto;    background-color: ghostwhite;">
               <div id="headerLegendLayer" style="border-bottom: 1px black solid"><p>Legend</p></div>
               <img id="imageLegendLayer" src="">
             </div>
+            {% if user.get_username %}
             <div class="lock-size" layout="row" layout-align="center center" style="position: fixed !important; top: 120px; left: 5px; z-index: 9;">
-
               <div>
                 <div class='menu-block'>
                   <a href='#' class='menu-btn-1'>
@@ -448,25 +455,35 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
                       <i class="fa fa-fw fa-free-code-camp"></i>
                       <md-tooltip md-direction="right">Firewalls</md-tooltip>
                     </a>
-                    <a href='#' class="md-icon-button test-tooltip" aria-label="...">
+                    <a href='#' class="md-icon-button test-tooltip" aria-label="..." ng-click="map_displays()">
                       <i class="fa fa-fw fa-fire"></i>
-                      <md-tooltip md-direction="right">...</md-tooltip>
+                      <md-tooltip md-direction="right">Compare Models</md-tooltip>
                     </a>
                   </nav>
                 </div>
               </div>
+              <div class="options" >
+                <ul><li>
+                    <input id="ori" type="checkbox" onchange="ctrl1.set('orientation',$(this).prop('checked')?'horizontal':'vertical')" /><label for="ori"> horizontal swipe</label>
+                </li><li>
+                    <button type="button" onclick="ctrl1.set('position', 0.5);">Reset position</button>
+                </li></ul>
+              </div>
             </div>
+            {% endif %}
           </div>
           <md-sidenav class="md-sidenav-left" md-component-id="left" md-disable-backdrop="" md-whiteframe="4" styles="width: 350px;">
             <md-toolbar class="md-theme-indigo" style="background-color: #dc9e7c;">
               <h1 id="titleSidenavLayers" class="md-toolbar-tools">Layers</h1>
             </md-toolbar>
             <ul id="layerList" style="/*background-color:#1a3139 !important*/ padding: 25px; font-size:15px;">
-              <li id="LayerFirewalls" class="nav-item">
-                  <md-checkbox ng-click="LoadLayerFirewalls()">
-                    Firewalls
-                  </md-checkbox>
-              </li>
+              {% if user.get_username %}
+                  <li id="LayerFirewalls" class="nav-item">
+                      <md-checkbox ng-click="LoadLayerFirewalls()">
+                        Firewalls
+                      </md-checkbox>
+                  </li>
+              {% endif %}
               <li id="LayerZonasActuacionUrgente" class="nav-item">
                   <md-checkbox ng-click="LoadLayerZonasActuacionUrgente()">
                     Areas of urgent action
@@ -649,6 +666,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   <script src="../static/js/zoomanimation.js"></script>
   
   <script type="text/javascript" src="https://cdn.rawgit.com/Viglino/ol-ext/master/dist/ol-ext.min.js"></script>
+  <script type="text/javascript" src="../static/dist/ol-ext.js"></script>
   <script>
   $('.menu-btn-1').on('click', function(e){
   e.preventDefault();
@@ -819,16 +837,6 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
       // Aparcamiento bicis:
   // http://mapas.valencia.es/lanzadera/opendata/aparcabicis/wms?
   
-  //var Firewalls = new ol.layer.Tile({
-    //source: new ol.source.TileWMS({
-      //url: 'http://localhost:8080/geoserver/signis_osgis/wms',
-      //params: {
-        //'LAYERS': 'signis_osgis:firewalls_firewalls', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
-      //},
-   // }), title: 'Firewalls', description: 'Firewalls from CCVV', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
-   // baseLayer: false, displayInLayerSwitcher: false
-  //});
-  
   var lib_openLayersLabelUtilities_createTextStyleFunction = function(campo, col) {
       return function(feature, color) {
           var estilo=new ol.style.Style({
@@ -862,12 +870,22 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
             strategy: ol.loadingstrategy.bbox
         });
 
-    var Firewalls = new ol.layer.Vector({
-        source: sourceFirewalls,
-        title: 'Firewalls', description: 'Firewalls from CCVV', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
-        baseLayer: false, displayInLayerSwitcher: false,
-        style: lib_openLayersLabelUtilities_createTextStyleFunction('gid','#80ff00')
-    });
+    //var Firewalls = new ol.layer.Vector({
+        //source: sourceFirewalls,
+        //title: 'Firewalls', description: 'Firewalls from CCVV', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
+        //baseLayer: false, displayInLayerSwitcher: false,
+        //style: lib_openLayersLabelUtilities_createTextStyleFunction('gid','#80ff00')
+    //});
+    
+    var Firewalls = new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'signis_osgis:firewalls_firewalls', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'Firewalls', description: 'Firewalls from CCVV', visible: false, crossOrigin: 'anonymous', serverType: 'mapserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
   
   Firewalls.setZIndex(999);
   olMap.addLayer(Firewalls);
@@ -909,7 +927,9 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         }
     }
     
-    $scope.map_drawFirewall = function() {
+    // DRAW FIREWALLS ------------------------------------------------------------------------------
+    $scope.map_drawFirewall = function(e) {
+        document.getElementById("insertForm").style.display = "block";
         var WFS_Firewalls = lib_openLayersUtilities_getLayerObjectByTitle(olMap,'Firewalls');
         var firewallsSource = WFS_Firewalls.getSource();
                 
@@ -918,7 +938,15 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
             type: ('LineString')
           });
         olMap.addInteraction(draw_lineString);
+        var elemento=e.feature;
+        elemento.setId('temp_polygon');
+        var coords = elemento.getGeometry().getCoordinates().toString();
+        var form = document.getElementById('insertForm');
+        form.reset();
+        var geom = form.elements["defaultForm-geom"].value=coords;
     };
+    
+    
 
   var ZonasActuacionUrgente = new ol.layer.Tile({
     source: new ol.source.TileWMS({
@@ -956,6 +984,16 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     if (PlanesLocalesQuemas.getVisible()==false) { PlanesLocalesQuemas.setVisible(true);  }              
     else { PlanesLocalesQuemas.setVisible(false); }
   };
+  // DISPLAYS -----------------------------------------------------------------------------------
+    var ctrl1 = new ol.control.Swipe();
+    $scope.map_displays = function() {
+        // Control
+        olMap.addControl(ctrl1);
+        // Set stamen on left
+        ctrl1.addLayer(PlanesLocalesQuemas);
+        // OSM on right
+        ctrl1.addLayer(ZonasActuacionUrgente, true);
+    };
 
         // Capas de incendios forestales
         var i = 46;

@@ -430,7 +430,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
           <button id="idMoveSideButtonLayers" mat-mini-fab class="moveSideButtonLayersClosed" ng-click="openSidenavLayers(evt);">
             <i class="material-icons">layers</i>
           </button>
-          <div class="row">
+          -<div class="row">
                 <div class="col-lg-12">
                     <div class="tab-content" >
                          {% include 'templates/firewalls.html' %}
@@ -462,13 +462,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
                   </nav>
                 </div>
               </div>
-              <div class="options" >
+              <!--<div class="options" >
                 <ul><li>
-                    <input id="ori" type="checkbox" onchange="ctrl1.set('orientation',$(this).prop('checked')?'horizontal':'vertical')" /><label for="ori"> horizontal swipe</label>
+                    <input id="ori" type="checkbox" ng-model="ctrl1" /><label for="ori"> horizontal swipe</label>
                 </li><li>
                     <button type="button" onclick="ctrl1.set('position', 0.5);">Reset position</button>
                 </li></ul>
-              </div>
+              </div>!-->
             </div>
             {% endif %}
           </div>
@@ -993,7 +993,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         ctrl1.addLayer(PlanesLocalesQuemas);
         // OSM on right
         ctrl1.addLayer(ZonasActuacionUrgente, true);
-    };
+    };    
 
         // Capas de incendios forestales
         var i = 46;

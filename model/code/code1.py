@@ -35,7 +35,7 @@ def vector(input,output,values,rules,name):
         distance = values[i]
         out = "../model_data/vector_data/b/"+name+"_b_"+str(distance)+".shp"
         
-        processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, True, out)
+        processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, False, out)
 	print "buffer"
         
         out1 = "../model_data/vector_data/f/"+name+"_f_"+str(distance)+".shp"
@@ -75,7 +75,8 @@ def vector(input,output,values,rules,name):
 
     merge.append(buffer[0][1])
     processing.runalg('qgis:mergevectorlayers', merge,out3)
- 
+    print "merged"
+     
     out4 = "../model_data/raster_data/raw/"+name+".tif"
 
     layer=QgsVectorLayer(out3,"l","ogr")
@@ -87,30 +88,36 @@ def vector(input,output,values,rules,name):
     ymin = extent.yMinimum()
     ymax = extent.yMaximum()
 
-    processing.runalg('gdalogr:rasterize', out3,'d',1,1.0,1.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),False,5,None,4,75.0,6.0,1.0,False,2,None,out4)
+    processing.runalg('gdalogr:rasterize', out3,'d',1,10.0,10.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),False,5,None,4,75.0,6.0,1.0,False,2,None,out4)
+    print "rasterized"
 
     out5 = "../model_data/raster_data/reclass/"+name+".tif"
     processing.runalg("grass7:r.reclass", out4,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out5)
+    print "reclassified"
 
 # 1 - cities
 input1 = "../model_data/vector_data/cities.shp"
 name1 = "cities"
 values1 = [300,600,900,1200,1500]
+rules1 = "../model_data/rules/cities.txt"
 
 # 2 - electric lines
 input2 = "../model_data/vector_data/electric_lines.shp"
 name2 = "electric_lines"
 values2 = [30,60,90,120,150]
+rules2 = "../model_data/rules/electric_lines.txt"
 
 # 3 - roads
-input3 = "../model_data/vector_data/roads.shp"
+input3 = "../model_data/vector_data/roads_merged.shp"
 name3 = "roads"
 values3 = [45,100,200]
+rules3 = "../model_data/rules/roads.txt"
 
 # 4 - water
 input4 = "../model_data/vector_data/water.shp"
 name4 = "water"
 values4 = [50,100,200,400]
+rules4 = "../model_data/rules/water.txt"
 
 # 5 - water points
 input5 = "../model_data/vector_data/water_points.shp"
@@ -121,15 +128,15 @@ rules5 = "../model_data/rules/water_points.txt"
 output = ""
 rules = ""
 
-#vector(input1,output,values1,rules,name1)
+#vector(input1,output,values1,rules1,name1)
 #print "vector 1"
-#vector(input2,output,values2,rules,name2)
+#vector(input2,output,values2,rules2,name2)
 #print "vector 2"
-#vector(input3,output,values3,rules,name3)
+#vector(input3,output,values3,rules3,name3)
 #print "vector 3"
-#vector(input4,output,values4,rules,name4)
+#vector(input4,output,values4,rules4,name4)
 #print "vector 4"
-vector(input5,output,values5,rules5,name5)
-print "vector 5"
+#vector(input5,output,values5,rules5,name5)
+#print "vector 5"
 
 QgsApplication.exitQgis() 

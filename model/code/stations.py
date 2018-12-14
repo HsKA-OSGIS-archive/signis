@@ -27,37 +27,37 @@ sys.setdefaultencoding('utf8')
 
 Processing.initialize() 
 
-input1 = "../model_data/vector_data/stationsV.shp"
-table1 = "../model_data/meteo_data/1V.csv"
-out1 = "../model_data/vector_data/meteo/meteoV.shp"
+def station_interpolation(input,month):
 
-input2 = "../model_data/vector_data/stationsC.shp"
-table2 = "../model_data/meteo_data/1C.csv"
-out2 = "../model_data/vector_data/meteo/meteoC.shp"
+	layer=QgsVectorLayer(input,"l","ogr")
+	QgsMapLayerRegistry.instance().addMapLayers([layer])
 
-out = "../model_data/vector_data/meteo/meteo.shp"
+	extent = layer.extent()
+	xmin = extent.xMinimum()
+	xmax = extent.xMaximum()
+	ymin = extent.yMinimum()
+	ymax = extent.yMaximum()
 
-processing.runalg('qgis:joinattributestable', input1,table1,'Estación','Estación',out1)
-processing.runalg('qgis:joinattributestable', input2,table2,'Estación','Estación',out2)
+	var = ["temperature","precipitations","humidity","wind"]
+	fields = ["temp media","Precipitac","Humedad re","Velocidad"]
+	
+	for i in range(len(var)):
 
-processing.runalg("qgis:mergevectorlayers",[out1,out2] , out)
+		name = var[i]
+		field = fields[i]
 
-out3 = "../model_data/raster_data/IDW/meteo.tif"
+		out1 = "../model_data/raster_data/IDW/"+name+"_"+str(month)+".tif"
 
-layer=QgsVectorLayer(out,"l","ogr")
-QgsMapLayerRegistry.instance().addMapLayers([layer])
+		processing.runalg('saga:inversedistanceweighted', input,field,1,2.0,False,1.0,1,100.0,0,-1.0,10.0,0,0,10.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),100.0,0,0,None,3,out1)
 
-extent = layer.extent()
-xmin = extent.xMinimum()
-xmax = extent.xMaximum()
-ymin = extent.yMinimum()
-ymax = extent.yMaximum()
+		rules = "../model_data/rules/"+name+".txt"
+		out2 = "../model_data/raster_data/reclass/"+name+"_"+str(month)+".tif"
 
-processing.runalg('saga:inversedistanceweighted', out,'temp media',1,2.0,False,1.0,1,100.0,0,-1.0,10.0,0,0,10.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),100.0,0,0,None,3,out3)
+		processing.runalg("grass7:r.reclass", out1,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out2)
 
-out4 = "../model_data/raster_data/reclass/temperature.tif"
-rules = "../model_data/rules/temperature.txt"
+month = 8;
+input = "../model_data/vector_data/meteo/meteo_"+str(month)+".shp"
 
-processing.runalg("grass7:r.reclass", out3,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out4)
+station_interpolation(input,month)
 
 QgsApplication.exitQgis() 

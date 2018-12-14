@@ -42,4 +42,22 @@ processing.runalg('qgis:joinattributestable', input2,table2,'Estaci√≥n','Estaci√
 
 processing.runalg("qgis:mergevectorlayers",[out1,out2] , out)
 
+out3 = "../model_data/raster_data/IDW/meteo.tif"
+
+layer=QgsVectorLayer(out,"l","ogr")
+QgsMapLayerRegistry.instance().addMapLayers([layer])
+
+extent = layer.extent()
+xmin = extent.xMinimum()
+xmax = extent.xMaximum()
+ymin = extent.yMinimum()
+ymax = extent.yMaximum()
+
+processing.runalg('saga:inversedistanceweighted', out,'temp media',1,2.0,False,1.0,1,100.0,0,-1.0,10.0,0,0,10.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),100.0,0,0,None,3,out3)
+
+out4 = "../model_data/raster_data/reclass/temperature.tif"
+rules = "../model_data/rules/temperature.txt"
+
+processing.runalg("grass7:r.reclass", out3,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out4)
+
 QgsApplication.exitQgis() 

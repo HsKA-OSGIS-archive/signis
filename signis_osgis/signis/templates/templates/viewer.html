@@ -975,12 +975,12 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addInteraction(select);
   select.on('select', function(evt) {
-    console.info(evt.selected[0].I.descript);
-    var description = evt.selected[0].I.descript;
-    var coordinate = evt.mapBrowserEvent.coordinate;
-    console.log(evt.mapBrowserEvent.coordinate);
-    content.innerHTML = '<p>' + description + '</p>';
-    overlay.setPosition(coordinate);
+    if (evt.selected[0]) {
+      var description = evt.selected[0].I.descript;
+      var coordinate = evt.mapBrowserEvent.coordinate;
+      content.innerHTML = '<p>' + description + '</p>';
+      overlay.setPosition(coordinate);
+    }
   });
   $scope.LoadLayerFirewalls = function() { 
           if (Firewalls.getVisible()==false) {

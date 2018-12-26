@@ -78,7 +78,7 @@ float: left;
 }
 .ol-popup {
     background-color: rgba(0,0,0,0.75);
-    color: #fff;
+    color: black;
     text-align: center;
     border-radius: 6px;
     padding: 8px 0;
@@ -373,7 +373,49 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   transform: translate(120%, -120%);
 }
 
-
+/* POPUP */
+.ol-popup {
+        position: absolute;
+        background-color: white;
+        -webkit-filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2));
+        padding: 15px;
+        border-radius: 10px;
+        border: 1px solid #cccccc;
+        bottom: 12px;
+        left: -50px;
+        min-width: 280px;
+      }
+      .ol-popup:after, .ol-popup:before {
+        top: 100%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+      .ol-popup:after {
+        border-top-color: white;
+        border-width: 10px;
+        left: 48px;
+        margin-left: -10px;
+      }
+      .ol-popup:before {
+        border-top-color: #cccccc;
+        border-width: 11px;
+        left: 48px;
+        margin-left: -11px;
+      }
+      .ol-popup-closer {
+        text-decoration: none;
+        position: absolute;
+        top: 2px;
+        right: 8px;
+      }
+      .ol-popup-closer:after {
+        content: "✖";
+      }
 
   </style>
 </head>
@@ -632,6 +674,10 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fa fa-angle-up"></i>
     </a>
+    <div id="popup" class="ol-popup">
+      <a href="#" id="popup-closer" class="ol-popup-closer"></a>
+      <div id="popup-content"></div>
+    </div>
     <!-- Logout Modal-->
     <!-- Bootstrap core JavaScript-->
     <script src="../static/vendor/jquery/jquery.min.js"></script>
@@ -680,6 +726,38 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   var sesion = angular.module('signis', ['ngMaterial', 'ngMessages']); 
   sesion.controller('signisController',['$scope','$http','$mdSidenav','$mdToast', function ($scope, $http, $mdSidenav, $mdToast) {
 
+/* POPUP */
+/**
+       * Elements that make up the popup.
+       */
+       var container = document.getElementById('popup');
+      var content = document.getElementById('popup-content');
+      var closer = document.getElementById('popup-closer');
+
+
+      /**
+       * Create an overlay to anchor the popup to the map.
+       */
+      var overlay = new ol.Overlay(/** @type {olx.OverlayOptions} */ ({
+        element: container,
+        autoPan: true,
+        autoPanAnimation: {
+          duration: 250
+        }
+      }));
+
+
+      /**
+       * Add a click handler to hide the popup.
+       * @return {boolean} Don't follow the href.
+       */
+      closer.onclick = function() {
+        overlay.setPosition(undefined);
+        closer.blur();
+        return false;
+      };
+
+/* POPUP */
     this.topDirections = ['left', 'up'];
       this.bottomDirections = ['down', 'right'];
 
@@ -787,6 +865,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   var olMap = new ol.Map({
     interactions: ol.interaction.defaults().extend([new ol.interaction.DragRotateAndZoom()]),
     layers: [OSM, vector],
+    overlays: [overlay],
     view: new ol.View({
         projection: myProjection,
         center: [-77934.38, 4831972.59],
@@ -889,7 +968,20 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   
   Firewalls.setZIndex(999);
   olMap.addLayer(Firewalls);
-  capas_wms.push(Firewalls);
+  // capas_wms.push(Firewalls);
+  var collection = new ol.Collection();
+  var select = new ol.interaction.Select({
+    features: collection
+  });
+  olMap.addInteraction(select);
+  select.on('select', function(evt) {
+    console.info(evt.selected[0].I.descript);
+    var description = evt.selected[0].I.descript;
+    var coordinate = evt.mapBrowserEvent.coordinate;
+    console.log(evt.mapBrowserEvent.coordinate);
+    content.innerHTML = '<p>' + description + '</p>';
+    overlay.setPosition(coordinate);
+  });
   $scope.LoadLayerFirewalls = function() { 
           if (Firewalls.getVisible()==false) {
               Firewalls.setVisible(true);             

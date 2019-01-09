@@ -20,6 +20,11 @@ Login
             <div class="card">
                 <div class="card-body" style="background-color: #fff">
                     <h3 class="text-center default-text py-3"><i class="fa fa-lock"></i> Login:</h3>
+                    <div class="text-center">
+                        <a href="{% url 'password_reset' %}">
+                            <span class="waves-effect waves-light">Forgot password?</span>
+                        </a>
+                    </div>
                     <!--Body-->
                     <div class="md-form">
                         <i class="fa fa-user prefix grey-text"></i>
@@ -38,8 +43,8 @@ Login
                         </a>
                     </div>
                     <div class="text-center">
-                        <a href="{% url 'password_reset' %}">
-                            <span class="waves-effect waves-light">Forgot password?</span>
+                        <a href="{% url 'users:registration' %}">
+                            <span class="waves-effect waves-light">New to (S)IGNIS? Create an account.</span>
                         </a>
                     </div>
                 </div>

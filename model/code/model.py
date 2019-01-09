@@ -18,18 +18,54 @@ sys.path.append("/usr/share/qgis/python/plugins")
 import processing 
 from processing.core.Processing import Processing 
 from processing.tools import * 
+from qgis.analysis import *
 
 import sys,os
 
 Processing.initialize() 
 
-input1 = "../model_data/raster_data/reclass/siose.tif"
-input2 = "../model_data/raster_data/reclass/slope.tif"
-input3 = "../model_data/raster_data/reclass/wind_8.tif"
-input4 = "../model_data/raster_data/reclass/orientation.tif"
+input11 = "../model_data/raster_data/reclass/electric_lines.tif"
+input21 = "../model_data/raster_data/reclass/cities.tif"
+input31 = "../model_data/raster_data/reclass/roads.tif"
+input41 = "../model_data/raster_data/reclass/NDVI.tif"
+input51 = "../model_data/raster_data/reclass/temperature_8.tif"
 
-output = "../model_data/results/propagation1.tif"
+input1 = QgsRasterLayer(input11,'input1')
+input2 = QgsRasterLayer(input21,'input2')
 
-processing.runalg('gdalogr:rastercalculator', input1,'1',input2,'1',input3,'1',input4,'1',None,'1',None,'1','5*A+4*((B+C)/2)+3*D',None,5,None,output)
+output = "../model_data/raster_data/NDVI/NDVI.tif"
+
+entries = []
+
+raster1 = QgsRasterCalculatorEntry()
+raster1.ref="input1@1"
+raster1.raster = input1
+raster1.bandNumber = 1
+entries.append(raster1)
+
+raster2 = QgsRasterCalculatorEntry()
+raster2.ref="input2@1"
+raster2.raster = input2
+raster2.bandNumber = 1
+entries.append(raster2)
+
+calc = QgsRasterCalculator('(input2@1 - input1@1)/(input2@1 + input1@1)', output, "GTiff", input1.extent(), input1.width(), input1.height(), entries)
+
+calc.processCalculation()
+
+rules = "../model_data/rules/NDVI.txt"
+output2 = "../model_data/raster_data/reclass/NDVI.tif"
+
+la = "../model_data/vector_data/rivers.shp"
+layer=QgsVectorLayer(la,"l","ogr")
+QgsMapLayerRegistry.instance().addMapLayers([layer])
+
+extent = layer.extent()
+xmin = extent.xMinimum()
+xmax = extent.xMaximum()
+ymin = extent.yMinimum()
+ymax = extent.yMaximum()
+
+processing.runalg("grass7:r.reclass", output,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, output2)
 
 QgsApplication.exitQgis() 

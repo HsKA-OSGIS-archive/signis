@@ -129,6 +129,16 @@ do
 			echo "Publishing the layer firewalls..."
 			curl -v -u $userGeoserver:$passGeoserver -XPOST -H "Content-type: text/xml" -d "<featureType><name>firewalls_firewalls</name></featureType>" http://localhost:8080/geoserver/rest/workspaces/$workspaceGeoserver/datastores/$storeGeoserver/featuretypes
 			echo "Layer published"
+			# Store to ImageMosaic
+			echo "We have to create another store to manage the raster images."
+			read -p "The default store name is 'signis_osgis_model'. Write the same name if you want: " storeModelGeoserver;
+			sudo chmod 777 -R ../../model/model_data/raster_data
+			curl -v -u $userGeoserver:$passGeoserver -XPUT -H "Content-type:application/zip" -T ../../model/model_data/raster_data/signis_osgis_model.zip http://localhost:8080/geoserver/$workspaceGeoserver/coveragestores/$storeModelGeoserver/file.imagemosaic
+			echo "Raster image published!"
+			# gdal_translate ../reclass/siose.tif siose20190108T180000000Z.tif
+			echo "Creating style..."
+			curl -v -u $userGeoserver:$passGeoserver -XPOST -H "Content-type: text/xml" -d "<style><name>model_style</name><filename>raster_style.sld</filename></style>" http://localhost:8080/geoserver/rest/styles
+			curl -v -u $userGeoserver:$passGeoserver -XPUT -H "Content-type: application/vnd.ogc.sld+xml" -d @raster_style.sld http://localhost:8080/geoserver/rest/styles/model_style
 			break;;
 		[Nn]* ) break;;
 		* ) echo "Please answer yes or no.";;

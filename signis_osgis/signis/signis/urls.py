@@ -20,7 +20,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^firewalls/', include('applications.firewalls.urls', namespace='firewalls')),
+    url(r'^viewer/', include('applications.firewalls.urls', namespace='firewalls')),
     url(r'^users/', include('applications.users.urls', namespace='users')),
     url(r'^login/', login, {'template_name':'login.html'}, name='login'),
     url(r'^$', login, {'template_name':'index.html'}, name='index'),
@@ -41,3 +41,4 @@ urlpatterns = [
     url(r'^reset/done', password_reset_complete, {'template_name': 'registration/password_reset_complete.html'},
         name='password_reset_complete'),
 ]
+

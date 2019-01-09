@@ -13,46 +13,170 @@
         <div class="col-md-6 mb-4">
             <div class="card">
                 <div class="card-body" style="background-color: #fff">
-                    <h3 class="text-center default-text py-3">Firewall</h3>
+                    <h3 class="text-center default-text py-3">Firewalls</h3>
                     <!--Body-->
-
+                    
                     <div class="md-form">
-                        <input type="text" id="defaultForm-geom" class="form-control" name="Coordinates">
-                        <label for="defaultForm-email">Coordinates</label>
+                        <label for="id">ID (Only necessary for update and delete)</label>
+                        <input type="text" id="id" class="form-control" name="id">
                     </div>
 
                     <div class="md-form">
-                        <input type="text" id="defaultForm-pass" class="form-control" name="Type">
-                        <label for="defaultForm-pass">Type</label>
+                        <label for="geom">Coordinates</label>
+                        <input type="text" id="geom" class="form-control" name="geom">
                     </div>
 
                     <div class="md-form">
-                        <input type="text" id="defaultForm-pass" class="form-control" name="Description">
-                        <label for="defaultForm-pass">Description</label>
+                        <label for="type">Type</label>
+                        <input type="text" id="type" class="form-control" name="type">
                     </div>
 
-
+                    <div class="md-form">
+                        <label for="descript">Description</label>
+                        <input type="text" id="descript" class="form-control" name="descript">
+                    </div>
 
                     <div class="text-center">
-                        <button class="btn btn-default waves-effect waves-light">Insert</button>
-
-                        <a href="{% url 'index' %}">
-                            <span class="btn btn-default waves-effect waves-light">Modify</span>
-                        </a>
-
-                        <a href="{% url 'index' %}">
-                            <span class="btn btn-default waves-effect waves-light">Remove</span>
-                        </a>
-
-                        <a href="{% url 'index' %}">
-                            <span class="btn btn-default waves-effect waves-light">Back</span>
-                        </a>
+                        <br><br>
+                        <button class="btn btn-default waves-effect waves-light" type="submit" onclick="send_firewall();">Insert</button>
+                        <button class="btn btn-default waves-effect waves-light" type="submit" onclick="update_firewall();">Update</button>         
+                        <button class="btn btn-default waves-effect waves-light" type="submit" onclick="delete_firewall();">Delete</button>                        
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </form>
+<script type="text/javascript">
+
+function send_firewall(){
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    
+    $.ajax({
+        url : '{% url 'firewalls:firewall_new' %}',
+        data : { geom:$('#geom').val(), type:$('#type').val(), descript:$('#descript').val() },
+        type : 'POST',
+        dataType : 'json',
+        success : function(json) {
+            alert('Inserted');
+        },
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+    });
+}
+
+function update_firewall(){
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    
+    $.ajax({
+        url : '{% url 'firewalls:firewall_update' %}',
+        data : { id:$('#id').val(), geom:$('#geom').val(), type:$('#type').val(), descript:$('#descript').val() },
+        type : 'POST',
+        dataType : 'json',
+        success : function(json) {
+            alert('Updated');
+        },
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+    });
+}
+
+function delete_firewall(){
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    var csrftoken = getCookie('csrftoken');
+    
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    
+    $.ajax({
+        url : '{% url 'firewalls:firewall_delete' %}',
+        data : { id:$('#id').val() },
+        type : 'POST',
+        dataType : 'json',
+        success : function(json) {
+            alert('Updated');
+        },
+        csrfmiddlewaretoken: '{{ csrf_token }}'
+    });
+}
+
+
+</script>
 
 
 {% endblock %}

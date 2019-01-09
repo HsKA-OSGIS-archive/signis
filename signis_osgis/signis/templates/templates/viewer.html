@@ -527,6 +527,79 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
                       </md-checkbox>
                   </li>
               {% endif %}
+              <ul>
+                <h6>Default models</h6>
+                <div style="padding-left: 20px;">
+                  <li id="LayerDefaultModelJanuary" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelJanuary()">
+                      January
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelFebruary" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelFebruary()">
+                      February
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelMarch" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelMarch()">
+                      March
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelApril" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelApril()">
+                      April
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelMay" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelMay()">
+                      May
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelJuny" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelJuny()">
+                      Juny
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelJuly" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelJuly()">
+                      July
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelAugust" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelAugust()">
+                      August
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelSeptember" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelSeptember()">
+                      September
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelOctober" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelOctober()">
+                      October
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelNovember" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelNovember()">
+                      November
+                    </md-checkbox>
+                  </li> 
+                  <li id="LayerDefaultModelDecember" class="nav-item">
+                    <md-checkbox ng-click="LoadLayerDefaultModelDecember()">
+                      December
+                    </md-checkbox>
+                  </li> 
+                </div>
+              </ul> 
+              <ul>Own model</h6>
+                  <li id="LayerOwnModel" class="nav-item"  style="padding-left: 20px;">
+                    <md-checkbox ng-click="LoadLayerOwnModel()">
+                      Model
+                    </md-checkbox>
+                  </li> 
+              </ul>
+             
               <li id="LayerZonasActuacionUrgente" class="nav-item">
                   <md-checkbox ng-click="LoadLayerZonasActuacionUrgente()">
                     Areas of urgent action
@@ -1057,6 +1130,255 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   ZonasActuacionUrgente.setZIndex(999);
   olMap.addLayer(ZonasActuacionUrgente);
   capas_wms.push(ZonasActuacionUrgente);
+  /* Conf to model */
+  var LayerDefaultModelJanuary =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_january', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_january', description: 'default_model_january', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelJanuary);
+  capas_wms.push(LayerDefaultModelJanuary);
+  $scope.LoadLayerDefaultModelJanuary = function() {
+    if (LayerDefaultModelJanuary.getVisible()==false) {
+      LayerDefaultModelJanuary.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelJanuary.setVisible(false);
+        }
+  };
+  var LayerDefaultModelFebruary =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_february', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_february', description: 'default_model_february', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelFebruary);
+  capas_wms.push(LayerDefaultModelFebruary);
+  $scope.LoadLayerDefaultModelFebruary = function() {
+    if (LayerDefaultModelFebruary.getVisible()==false) {
+      LayerDefaultModelFebruary.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelFebruary.setVisible(false);
+        }
+  };
+  var LayerDefaultModelMarch =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_march', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_march', description: 'default_model_march', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelMarch);
+  capas_wms.push(LayerDefaultModelMarch);
+  $scope.LoadLayerDefaultModelMarch = function() {
+    if (LayerDefaultModelMarch.getVisible()==false) {
+      LayerDefaultModelMarch.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelMarch.setVisible(false);
+        }
+  };
+  var LayerDefaultModelApril =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_april', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_april', description: 'default_model_april', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelApril);
+  capas_wms.push(LayerDefaultModelApril);
+  $scope.LoadLayerDefaultModelApril = function() {
+    if (LayerDefaultModelApril.getVisible()==false) {
+      LayerDefaultModelApril.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelApril.setVisible(false);
+        }
+  };
+  var LayerDefaultModelMay =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_may', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_may', description: 'default_model_may', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelMay);
+  capas_wms.push(LayerDefaultModelMay);
+  $scope.LoadLayerDefaultModelMay = function() {
+    if (LayerDefaultModelMay.getVisible()==false) {
+      LayerDefaultModelMay.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelMay.setVisible(false);
+        }
+  };
+  var LayerDefaultModelJuny =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_juny', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_juny', description: 'default_model_juny', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelJuny);
+  capas_wms.push(LayerDefaultModelJuny);
+  $scope.LoadLayerDefaultModelJuny = function() {
+    if (LayerDefaultModelJuny.getVisible()==false) {
+      LayerDefaultModelJuny.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelJuny.setVisible(false);
+        }
+  };
+  var LayerDefaultModelJuly =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_july', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_july', description: 'default_model_july', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelJuly);
+  capas_wms.push(LayerDefaultModelJuly);
+  $scope.LoadLayerDefaultModelJuly = function() {
+    if (LayerDefaultModelJuly.getVisible()==false) {
+      LayerDefaultModelJuly.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelJuly.setVisible(false);
+        }
+  };
+  var LayerDefaultModelAugust =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_august', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_august', description: 'default_model_august', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelAugust);
+  capas_wms.push(LayerDefaultModelAugust);
+  $scope.LoadLayerDefaultModelAugust = function() {
+    if (LayerDefaultModelAugust.getVisible()==false) {
+      LayerDefaultModelAugust.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelAugust.setVisible(false);
+        }
+  };
+  var LayerDefaultModelSeptember =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_september', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_september', description: 'default_model_september', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelSeptember);
+  capas_wms.push(LayerDefaultModelSeptember);
+  $scope.LoadLayerDefaultModelSeptember = function() {
+    if (LayerDefaultModelSeptember.getVisible()==false) {
+      LayerDefaultModelSeptember.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelSeptember.setVisible(false);
+        }
+  };
+  var LayerDefaultModelOctober =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_october', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_october', description: 'default_model_october', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelOctober);
+  capas_wms.push(LayerDefaultModelOctober);
+  $scope.LoadLayerDefaultModelOctober = function() {
+    if (LayerDefaultModelOctober.getVisible()==false) {
+      LayerDefaultModelOctober.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelOctober.setVisible(false);
+        }
+  };
+  var LayerDefaultModelNovember =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_november', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_november', description: 'default_model_november', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelNovember);
+  capas_wms.push(LayerDefaultModelNovember);
+  $scope.LoadLayerDefaultModelNovember = function() {
+    if (LayerDefaultModelNovember.getVisible()==false) {
+      LayerDefaultModelNovember.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelNovember.setVisible(false);
+        }
+  };
+  var LayerDefaultModelDecember =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'default_model_december', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'default_model_december', description: 'default_model_december', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerDefaultModelDecember);
+  capas_wms.push(LayerDefaultModelDecember);
+  $scope.LoadLayerDefaultModelDecember = function() {
+    if (LayerDefaultModelDecember.getVisible()==false) {
+      LayerDefaultModelDecember.setVisible(true); 
+        }              
+    else {
+      LayerDefaultModelDecember.setVisible(false);
+        }
+  };
+  var LayerOwnModel =  new ol.layer.Tile({
+    source: new ol.source.TileWMS({
+      url: 'http://localhost:8080/geoserver/signis_osgis/wms',
+      params: {
+        'LAYERS': 'own_model', 'VERSION': '1.3.0', 'CRS': 'EPSG:3857'
+      },
+    }), title: 'own_model', description: 'own_model', visible: false, crossOrigin: 'anonymous', serverType: 'geoserver',
+    baseLayer: false, displayInLayerSwitcher: false
+  });
+  olMap.addLayer(LayerOwnModel);
+  capas_wms.push(LayerOwnModel);
+  $scope.LoadLayerOwnModel = function() {
+    if (LayerOwnModel.getVisible()==false) {
+      LayerOwnModel.setVisible(true); 
+        }              
+    else {
+      LayerOwnModel.setVisible(false);
+        }
+  };
+    /* Conf to model */
   $scope.LoadLayerZonasActuacionUrgente = function() { 
           if (ZonasActuacionUrgente.getVisible()==false) {
               ZonasActuacionUrgente.setVisible(true);  

@@ -35,7 +35,7 @@ def vector(input,output,values,rules,name):
         distance = values[i]
         out = "../model_data/vector_data/b/"+name+"_b_"+str(distance)+".shp"
         
-        processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, False, out)
+        processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, True, out)
 	print "buffer"
         
         out1 = "../model_data/vector_data/f/"+name+"_f_"+str(distance)+".shp"

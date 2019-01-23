@@ -108,7 +108,7 @@ values2 = [30,60,90,120,150]
 rules2 = "../model_data/rules/electric_lines.txt"
 
 # 3 - roads
-input3 = "../model_data/vector_data/roads_merged.shp"
+input3 = "../model_data/vector_data/roads.shp"
 name3 = "roads"
 values3 = [45,100,200]
 rules3 = "../model_data/rules/roads.txt"
@@ -125,6 +125,24 @@ name5 = "water_points"
 values5 = [500,1000,1500,2000]
 rules5 = "../model_data/rules/water_points.txt"
 
+# 6 - Firewalls
+input6 = "../model_data/vector_data/firewalls.shp"
+name6 = "firewalls"
+values6 = [10,15]
+rules6 = "../model_data/rules/firewalls.txt"
+
+# 7 - Roads_firewalls
+input7 = "../model_data/vector_data/roads.shp"
+name7 = "roads_firewalls"
+values7 = [5,10]
+rules7 = "../model_data/rules/roads_firewalls.txt"
+
+# 8 - rivers
+input8 = "../model_data/vector_data/rivers.shp"
+name8 = "rivers"
+values8 = [5,10]
+rules8 = "../model_data/rules/rivers.txt"
+
 output = ""
 rules = ""
 
@@ -138,5 +156,11 @@ rules = ""
 #print "vector 4"
 #vector(input5,output,values5,rules5,name5)
 #print "vector 5"
+#vector(input6,output,values6,rules6,name6)
+#print "vector 6"
+#vector(input7,output,values7,rules7,name7)
+#print "vector 7"
+vector(input8,output,values8,rules8,name8)
+print "vector 8"
 
 QgsApplication.exitQgis() 

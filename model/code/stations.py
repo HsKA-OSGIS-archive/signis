@@ -55,9 +55,15 @@ def station_interpolation(input,month):
 
 		processing.runalg("grass7:r.reclass", out1,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out2)
 
-month = 8;
-input = "../model_data/vector_data/meteo/meteo_"+str(month)+".shp"
+monthlist = [1,2,3,4,5,6,7,8,9,10,11,12]
 
-station_interpolation(input,month)
+for i in range(len(monthlist)):
+	
+	month = monthlist[i]
+	print month
+	input = "../model_data/vector_data/meteo/meteo_"+str(month)+".shp"
+	print input
+	station_interpolation(input,month)
+
 
 QgsApplication.exitQgis() 

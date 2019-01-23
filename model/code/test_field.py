@@ -21,42 +21,30 @@ from processing.core.Processing import Processing
 from processing.tools import * 
 
 import sys,os
+import pandas as pd
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 Processing.initialize() 
 
-input_layer = "/home/user/OSGIS/signis/model/model_data/vector_data/f/f300.shp"
-output = "/home/user/OSGIS/signis/model/model_data/vector_data/fv/fv300.shp"
+def stations_join(tableC, tableV, month):
 
-distance = 300
+	input1 = "../model_data/vector_data/stationsV.shp"
+	input2 = "../model_data/vector_data/stationsC.shp"
 
-#processing.runalg('qgis:fieldcalculator', input, "d", 1, 5, 0, False, distance, output)
-#processing.runalg('qgis:fieldcalculator', input_layer, 'd', 1, 5, 0, True, 300, output)
-#processing.runalg('qgis:fieldcalculator', input_layer,'d',0,10.0,3.0,True,'300',output)
+	out1 = "../model_data/vector_data/meteo/meteoV"+str(month)+".shp"
+	out2 = "../model_data/vector_data/meteo/meteoC"+str(month)+".shp"
 
-layer=QgsVectorLayer(input_layer,"l","ogr")
-QgsMapLayerRegistry.instance().addMapLayers([layer])
+	processing.runalg('qgis:joinattributestable', input1,tableV,'Estación','Estación',out1)
+	processing.runalg('qgis:joinattributestable', input2,tableC,'Estación','Estación',out2)
 
+	out = "../model_data/vector_data/meteo/meteo_"+str(month)+".shp"
 
-#####Attribut aus Shape abfragen
+	processing.runalg("qgis:mergevectorlayers",[out1,out2] , out)
 
-features=layer.getFeatures()
-f=features.next()
-f.attributes()
-
-##Index von bestimmten Spaltennamen finden um den später ansprechen zu können (ANB beinhaltet dann Index als Zahl) 
-d=f.fields().indexFromName('d')
-
-## nur ein bestimmtes Attribut aus einer Spalte auswählen und anzeigen lassen
-#selection=layer.getFeatures(QgsFeatureRequest().setFilterExpression(u' "ANB"=2'))
-
-## selektierte Werte updaten:
-
-layer.startEditing()
-for feat in features:
-  layer.changeAttributeValue(feat.id(), d, 3)
-
-layer.commitChanges()
-
+csvV = "../model_data/meteo_data/testV.csv"
+csvC = "../model_data/meteo_data/testC.csv"
 
 QgsApplication.exitQgis() 
 

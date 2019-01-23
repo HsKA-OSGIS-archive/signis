@@ -105,6 +105,7 @@ month12 = 12;
 stations_join(tableC1, tableV1, month1)
 stations_join(tableC2, tableV2, month2)
 stations_join(tableC3, tableV3, month3)
+stations_join(tableC4, tableV4, month4)
 stations_join(tableC5, tableV5, month5)
 stations_join(tableC6, tableV6, month6)
 stations_join(tableC7, tableV7, month7)

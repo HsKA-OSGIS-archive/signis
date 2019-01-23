@@ -176,4 +176,26 @@ entries2.append(raster16)
 
 #calc2.processCalculation()
 
+#output3 = "../results/risk.tif"
+in1 = QgsRasterLayer(output2,'in1')
+in2 = QgsRasterLayer(output3,'in2')
+
+entriesin = []
+
+rasterin1 = QgsRasterCalculatorEntry()
+rasterin1.ref="in1@1"
+rasterin1.raster = in1
+rasterin1.bandNumber = 1
+entriesin.append(rasterin1)
+
+rasterin2 = QgsRasterCalculatorEntry()
+rasterin2.ref="in2@1"
+rasterin2.raster = in2
+rasterin2.bandNumber = 1
+entriesin.append(rasterin2)
+
+#calc3 = QgsRasterCalculator('in1@1+in2@1', output3, "GTiff", input1.extent(), input1.width(), input1.height(), entriesin)
+
+#calc.processCalculation()
+
 QgsApplication.exitQgis() 

@@ -150,8 +150,8 @@ rules = ""
 #print "vector 1"
 #vector(input2,output,values2,rules2,name2)
 #print "vector 2"
-#vector(input3,output,values3,rules3,name3)
-#print "vector 3"
+vector(input3,output,values3,rules3,name3)
+print "vector 3"
 #vector(input4,output,values4,rules4,name4)
 #print "vector 4"
 #vector(input5,output,values5,rules5,name5)
@@ -160,7 +160,7 @@ rules = ""
 #print "vector 6"
 #vector(input7,output,values7,rules7,name7)
 #print "vector 7"
-vector(input8,output,values8,rules8,name8)
-print "vector 8"
+#vector(input8,output,values8,rules8,name8)
+#print "vector 8"
 
 QgsApplication.exitQgis() 

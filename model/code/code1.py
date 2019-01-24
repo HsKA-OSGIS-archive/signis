@@ -108,7 +108,7 @@ values2 = [30,60,90,120,150]
 rules2 = "../model_data/rules/electric_lines.txt"
 
 # 3 - roads
-input3 = "../model_data/vector_data/roads.shp"
+input3 = "../model_data/vector_data/roads2.shp"
 name3 = "roads"
 values3 = [45,100,200]
 rules3 = "../model_data/rules/roads.txt"
@@ -138,7 +138,7 @@ values7 = [5,10]
 rules7 = "../model_data/rules/roads_firewalls.txt"
 
 # 8 - rivers
-input8 = "../model_data/vector_data/rivers.shp"
+input8 = "../model_data/vector_data/rivers2.shp"
 name8 = "rivers"
 values8 = [5,10]
 rules8 = "../model_data/rules/rivers.txt"

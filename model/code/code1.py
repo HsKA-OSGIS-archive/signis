@@ -152,8 +152,8 @@ rules = ""
 #print "vector 2"
 #vector(input3,output,values3,rules3,name3)
 #print "vector 3"
-vector(input4,output,values4,rules4,name4)
-print "vector 4"
+#vector(input4,output,values4,rules4,name4)
+#print "vector 4"
 #vector(input5,output,values5,rules5,name5)
 #print "vector 5"
 #vector(input6,output,values6,rules6,name6)

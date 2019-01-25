@@ -46,7 +46,11 @@ def firewalls_insert(request):
         # Execute
         cursor.execute(cons_ins,list_field_values)
         conn.commit()
-        return HttpResponse("Firewall Inserted")
+        
+        dicc = {}
+        dicc['firewall'] = 'Firewall inserted'
+        r = json.dumps(dicc)
+        return JsonResponse(r, safe=False)
     
 def firewalls_update(request):
     if request.method == 'POST':
@@ -84,7 +88,11 @@ def firewalls_update(request):
         cons_up += ' ' + cond_where
         cursor.execute(cons_up,list_field_values + list_values_cond_where)
         conn.commit()
-        return HttpResponse("Firewall Updated")
+        
+        dicc = {}
+        dicc[id] = 'Firewall updated'
+        r = json.dumps(dicc)
+        return JsonResponse(r, safe=False)
     
 def firewalls_delete(request):
     if request.method == 'POST':
@@ -110,7 +118,11 @@ def firewalls_delete(request):
         cons_del += ' ' + cond_where
         cursor.execute(cons_del, list_values_cond_where)
         conn.commit()
-        return HttpResponse("Firewall Deleted")
+        
+        dicc = {}
+        dicc[id] = 'Firewall deleted'
+        r = json.dumps(dicc)
+        return JsonResponse(r,safe=False)
       
 def transform_coords_ol_to_postgis(coords_geom, splitString=','):
     lc=coords_geom.split(splitString)

@@ -5,42 +5,44 @@
     background-color: rgb(56, 72, 82);
   }
 </style>
-<form method="post" style="position: absolute; width: 100%; height: 100%; right:-60%; top:35%; ransform: translateY(20%); justify-content: center; z-index:99999999;">
+<form method="post" style="position: absolute; width: 100%; height: auto; right:-60%; bottom:35%; ransform: translateY(20%); justify-content: center; z-index:99999999;">
     {% csrf_token %}
      <!-- Grid row -->
     <div class="row" id="insertForm" style="position: absolute; width: 100%; height: 100%; right:10%; top:35%; ransform: translateY(20%); justify-content: center; display:none; z-index:99999999;">
         <!-- Grid column -->
-        <div class="col-md-6 mb-4">
-            <div class="card">
-                <div class="card-body" style="background-color: #fff">
-                    <h3 class="text-center default-text py-3">Firewalls</h3>
+        <div id="cardF" class="col-md-6 mb-4" style="position:absolute;">
+            <div id="card" class="card">
+                <div class="card-body" style="background-color: rgba(56, 72, 82)">
+                    <i onclick="hideForm();" id="arrow" class="fas fa-arrow-right" style="position:absolute; font-size: 18px; color:white; right:5%; cursor:pointer;"></i>
+                    <br>
+                    <h3 class="text-center default-text py-3" style="color:rgba(43, 187, 173)" id="tit_form">Firewalls</h3>
                     <!--Body-->
                     
-                    <div class="md-form">
-                        <label for="id">ID (Only necessary for update and delete)</label>
-                        <input type="text" id="id" class="form-control" name="id">
+                    <div class="form-group" id="id_form">
+                        <label for="id" style="color:rgba(43, 187, 173)">ID (Only necessary for update and delete)</label>
+                        <input type="text" id="id" class="form-control" name="id" style="background-color: #9ba3a8">
                     </div>
 
-                    <div class="md-form">
+                    <div class="form-group" style="display:none;">
                         <label for="geom">Coordinates</label>
                         <input type="text" id="geom" class="form-control" name="geom">
                     </div>
 
-                    <div class="md-form">
-                        <label for="type">Type</label>
-                        <input type="text" id="type" class="form-control" name="type">
+                    <div class="form-group" id="type_form">
+                        <label for="type" style="color:rgba(43, 187, 173)">Type</label>
+                        <input type="text" id="type" class="form-control" name="type" style="background-color: #9ba3a8">
                     </div>
 
-                    <div class="md-form">
-                        <label for="descript">Description</label>
-                        <input type="text" id="descript" class="form-control" name="descript">
+                    <div class="form-group" id="desc_form">
+                        <label for="descript" style="color:rgba(43, 187, 173)">Description</label>
+                        <input type="text" id="descript" class="form-control" name="descript" style="background-color: #9ba3a8">
                     </div>
 
-                    <div class="text-center">
+                    <div class="text-center" id="but_form">
                         <br><br>
-                        <button class="btn btn-default waves-effect waves-light" type="submit" onclick="send_firewall();">Insert</button>
-                        <button class="btn btn-default waves-effect waves-light" type="submit" onclick="update_firewall();">Update</button>         
-                        <button class="btn btn-default waves-effect waves-light" type="submit" onclick="delete_firewall();">Delete</button>                        
+                        <button class="btn btn-primary waves-effect waves-light" type="submit" onclick="send_firewall();">Insert</button>
+                        <button class="btn btn-primary waves-effect waves-light" type="submit" onclick="update_firewall();">Update</button>         
+                        <button class="btn btn-danger waves-effect waves-light" type="submit" onclick="delete_firewall();">Delete</button>                        
                     </div>
                 </div>
             </div>
@@ -48,6 +50,34 @@
     </div>
 </form>
 <script type="text/javascript">
+var hideFormVar = 0;
+function hideForm(){
+    if (hideFormVar == 0){
+        document.getElementById('tit_form').style.display = 'none';
+        document.getElementById('id_form').style.display = 'none';
+        document.getElementById('type_form').style.display = 'none';
+        document.getElementById('desc_form').style.display = 'none';
+        document.getElementById('but_form').style.display = 'none';
+        document.getElementById("arrow").classList.add('fa-arrow-left');
+        document.getElementById("arrow").classList.remove('fa-arrow-right');
+        document.getElementById("card").style.width = '30px';
+        document.getElementById("cardF").style.width = '0';
+        document.getElementById("cardF").style.right = '53.2%';
+        hideFormVar = 1;
+    }else if (hideFormVar == 1){
+        document.getElementById('tit_form').style.display = 'block';
+        document.getElementById('id_form').style.display = 'block';
+        document.getElementById('type_form').style.display = 'block';
+        document.getElementById('desc_form').style.display = 'block';
+        document.getElementById('but_form').style.display = 'block';
+        document.getElementById("arrow").classList.add('fa-arrow-right');
+        document.getElementById("arrow").classList.remove('fa-arrow-left');
+        document.getElementById("card").style.width = '100%';
+        document.getElementById("cardF").style.width = '';
+        document.getElementById("cardF").style.right = '';
+        hideFormVar = 0;
+    }
+}
 
 function send_firewall(){
     function getCookie(name) {
@@ -85,7 +115,7 @@ function send_firewall(){
         type : 'POST',
         dataType : 'json',
         success : function(json) {
-            alert('Inserted');
+            document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall inserted';
         },
         csrfmiddlewaretoken: '{{ csrf_token }}'
     });
@@ -127,7 +157,7 @@ function update_firewall(){
         type : 'POST',
         dataType : 'json',
         success : function(json) {
-            alert('Updated');
+            document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall updated';
         },
         csrfmiddlewaretoken: '{{ csrf_token }}'
     });
@@ -169,7 +199,7 @@ function delete_firewall(){
         type : 'POST',
         dataType : 'json',
         success : function(json) {
-            alert('Updated');
+            document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall deleted';
         },
         csrfmiddlewaretoken: '{{ csrf_token }}'
     });

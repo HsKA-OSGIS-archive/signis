@@ -7,6 +7,7 @@ encoding//applications/firewalls/migrations/0003_auto_20181205_1221.py=utf-8
 encoding//applications/firewalls/models.py=utf-8
 encoding//applications/firewalls/tests.py=utf-8
 encoding//applications/firewalls/views.py=utf-8
+encoding//applications/models_firerisk/views.py=utf-8
 encoding//applications/users/admin.py=utf-8
 encoding//applications/users/apps.py=utf-8
 encoding//applications/users/models.py=utf-8

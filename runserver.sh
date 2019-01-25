@@ -164,10 +164,10 @@ do
 			curl -u $userGeoserver:$passGeoserver -XPUT -H "Content-type: application/vnd.ogc.sld+xml" -d @raster_style.sld http://localhost:8080/geoserver/rest/styles/model_style;
 			echo -ne '\n##################       (67%)\n'
 			sleep 0.5
-			cd ../../model/model_data/raster_data/signis_osgis_model
+			cd ../../model/results/final
 			path=$(pwd)
 			echo -ne "Configuring stores and layers......"
-			array=("default_model_january" "default_model_february" "default_model_march" "default_model_april" "default_model_may" "default_model_juny" "default_model_july" "default_model_august" "default_model_september" "default_model_october" "default_model_november" "default_model_december" "own_model")
+			array=("risk1" "risk2" "risk3" "risk4" "risk5" "risk6" "risk7" "risk8" "risk9" "risk10" "risk11" "risk12" "risk_user")
 			boundingBox='<nativeBoundingBox><minx>656449.5752999996</minx><maxx>711524.5752999996</maxx><miny>4376198.7327</miny><maxy>4410048.7327</maxy></nativeBoundingBox><latLonBoundingBox><minx>5.896986867457583</minx><maxx>6.3917340101864095</maxx><miny>36.547343545100034</miny><maxy>36.791244229043</maxy><crs>EPSG:4326</crs></latLonBoundingBox>'
 			echo -ne '\n###################      (70%)\n'
 			sleep 1
@@ -182,7 +182,7 @@ do
 				sleep 0.5
 			done
 
-			cd ../../../../signis_osgis/signis
+			cd ../../../signis_osgis/signis
 			echo -ne "Raster image published!";
 			echo -ne '\n#######################  (94%)\n'
 			sleep 1

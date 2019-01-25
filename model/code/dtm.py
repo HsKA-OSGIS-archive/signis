@@ -43,7 +43,7 @@ output2 = "../model_data/DTM/orientation/orientation.tif"
 output3 = "../model_data/DTM/ilumination/ilumination.tif"
 
 processing.runalg('gdalogr:slope', input, 1.0, False, False, True, 1.0, output1)
-processing.runalg('gdalogr:aspect', input,1.0,False,False,False,False,output2)
+processing.runalg('gdalogr:aspect', input,1.0,False,False,False,True,output2)
 processing.runalg('gdalogr:hillshade', input,1.0,False,False,1.0,1.0,315.0,45.0,output3)
 
 output12 = "../model_data/raster_data/reclass/slope.tif"

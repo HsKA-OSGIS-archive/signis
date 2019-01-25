@@ -49,6 +49,7 @@ def NDVI(input11, input21, season):
 	calc = QgsRasterCalculator('(input2@1 - input1@1)/(input2@1 + input1@1)', output, "GTiff", input1.extent(), input1.width(), input1.height(), entries)
 
 	calc.processCalculation()
+	print "calc"
 
 	rules = "../model_data/rules/NDVI.txt"
 	output2 = "../model_data/raster_data/reclass/NDVI_"+season+".tif"
@@ -64,11 +65,34 @@ def NDVI(input11, input21, season):
 	ymax = extent.yMaximum()
 
 	processing.runalg("grass7:r.reclass", output,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, output2)
+	print "reclass"
 
-input11 = "../model_data/Lansat_images/summer/b3_ago02.tif"
-input21 = "../model_data/Lansat_images/summer/b4_ago02.tif"
-season = "summer"
+input11 = "../model_data/Lansat_images/summer/summer_3.tif"
+input21 = "../model_data/Lansat_images/summer/summer_4.tif"
+season1 = "summer"
 
-NDVI(input11, input21, season)
+NDVI(input11, input21, season1)
+print "NDVI 1"
+
+input12 = "../model_data/Lansat_images/spring/spring_3.tif"
+input22 = "../model_data/Lansat_images/spring/spring_4.tif"
+season2 = "spring"
+
+NDVI(input12, input22, season2)
+print "NDVI 2"
+
+input13 = "../model_data/Lansat_images/autumn/autumn_3.tif"
+input23 = "../model_data/Lansat_images/autumn/autumn_4.tif"
+season3 = "autumn"
+
+NDVI(input13, input23, season3)
+print "NDVI 3"
+
+input14 = "../model_data/Lansat_images/winter/winter_3.tif"
+input24 = "../model_data/Lansat_images/winter/winter_4.tif"
+season4 = "winter"
+
+NDVI(input14, input24, season4)
+print "NDVI 4"
 
 QgsApplication.exitQgis() 

@@ -28,6 +28,8 @@ def vector(input,output,values,rules,name):
     
     buffer = []
     merge = []
+
+    zone = "../model_data/vector_data/work_zone.shp"
     
     for i in range(len(values)):
 
@@ -79,7 +81,7 @@ def vector(input,output,values,rules,name):
      
     out4 = "../model_data/raster_data/raw/"+name+".tif"
 
-    layer=QgsVectorLayer(out3,"l","ogr")
+    layer=QgsVectorLayer(zone,"l","ogr")
     QgsMapLayerRegistry.instance().addMapLayers([layer])
 
     extent = layer.extent()

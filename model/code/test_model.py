@@ -21,29 +21,29 @@ from processing.tools import *
 from qgis.analysis import *
 
 import sys,os
-import pandas as pd
+#import pandas as pd
 
 import csv
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
-def runModel(meteo,firewalls,m):
+def runModel(meteo,firewalls,m=1):
 
 	Processing.initialize() 
 
 	def stations_join(tableC, tableV, month):
 
-		input1 = "../model_data/vector_data/stationsV.shp"
-		input2 = "../model_data/vector_data/stationsC.shp"
+		input1 = "../../model/model_data/vector_data/stationsV.shp"
+		input2 = "../../model/model_data/vector_data/stationsC.shp"
 
-		out1 = "../model_data/vector_data/meteo/meteoV_user.shp"
-		out2 = "../model_data/vector_data/meteo/meteoC_user.shp"
+		out1 = "../../model/model_data/vector_data/meteo/meteoV_user.shp"
+		out2 = "../../model/model_data/vector_data/meteo/meteoC_user.shp"
 
 		processing.runalg('qgis:joinattributestable', input1,tableV,'Estación','Estación',out1)
 		processing.runalg('qgis:joinattributestable', input2,tableC,'Estación','Estación',out2)
 
-		out = "../model_data/vector_data/meteo/meteo_user.shp"
+		out = "../../model/model_data/vector_data/meteo/meteo_user.shp"
 
 		processing.runalg("qgis:mergevectorlayers",[out1,out2] , out)
 
@@ -66,26 +66,26 @@ def runModel(meteo,firewalls,m):
 			name = var[i]
 			field = fields[i]
 
-			out1 = "../model_data/raster_data/IDW/"+name+"_user.tif"
+			out1 = "../../model/model_data/raster_data/IDW/"+name+"_user.tif"
 
 			processing.runalg('saga:inversedistanceweighted', input,field,1,2.0,False,1.0,1,100.0,0,-1.0,10.0,0,0,10.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),100.0,0,0,None,3,out1)
 
-			rules = "../model_data/rules/"+name+".txt"
-			out2 = "../model_data/raster_data/reclass/"+name+"_user.tif"
+			rules = "../../model/model_data/rules/"+name+".txt"
+			out2 = "../../model/model_data/raster_data/reclass/"+name+"_user.tif"
 
 			processing.runalg("grass7:r.reclass", out1,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out2)
 
-	slope = "../model_data/raster_data/reclass/slope.tif"
-	siose = "../model_data/raster_data/reclass/siose.tif"
-	orientation = "../model_data/raster_data/reclass/orientation.tif"
-	rivers = "../model_data/raster_data/reclass/rivers.tif"
-	water = "../model_data/raster_data/reclass/water.tif"
-	water_points = "../model_data/raster_data/reclass/water_points.tif"
-	electric_lines = "../model_data/raster_data/reclass/electric_lines.tif"
-	cities = "../model_data/raster_data/reclass/cities.tif"
-	ilumination = "../model_data/raster_data/reclass/ilumination.tif"
-	roads = "../model_data/raster_data/reclass/roads.tif"
-	rules2 = "../model_data/rules/model.txt"
+	slope = "../../model/model_data/raster_data/reclass/slope.tif"
+	siose = "../../model/model_data/raster_data/reclass/siose.tif"
+	orientation = "../../model/model_data/raster_data/reclass/orientation.tif"
+	rivers = "../../model/model_data/raster_data/reclass/rivers.tif"
+	water = "../../model/model_data/raster_data/reclass/water.tif"
+	water_points = "../../model/model_data/raster_data/reclass/water_points.tif"
+	electric_lines = "../../model/model_data/raster_data/reclass/electric_lines.tif"
+	cities = "../../model/model_data/raster_data/reclass/cities.tif"
+	ilumination = "../../model/model_data/raster_data/reclass/ilumination.tif"
+	roads = "../../model/model_data/raster_data/reclass/roads.tif"
+	rules2 = "../../model/model_data/rules/model.txt"
 
 	input_slope = QgsRasterLayer(slope,'slope')
 	input_siose = QgsRasterLayer(siose,'siose')
@@ -166,8 +166,8 @@ def runModel(meteo,firewalls,m):
 		if (meteo == 1):
 			print "csv personalizado"
 			# CVS files
-			csvV = "../model_data/meteo_data/userV.csv"
-			csvC = "../model_data/meteo_data/userC.csv"
+			csvV = "../../model/model_data/meteo_data/userV.csv"
+			csvC = "../../model/model_data/meteo_data/userC.csv"
 
 			# Look for the month
 			cont = 1;
@@ -181,34 +181,34 @@ def runModel(meteo,firewalls,m):
 			#stations_join(csvC, csvV, month)
 
 			# Interpolation
-			#input = "../model_data/vector_data/meteo/meteo_user.shp"
+			#input = "../../model/model_data/vector_data/meteo/meteo_user.shp"
 			#station_interpolation(input)
 
 			# Take NDVI depending on the month
 			season = "none"
 
 			if (('4' in month) or ('5' in month) or ('6' in month)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_spring.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_spring.tif"
 			elif (('7' in month) or ('8' in month) or ('9' in month)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_summer.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_summer.tif"
 			elif (('10' in month) or ('11' in month) or ('12' in month)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_autumn.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_autumn.tif"
 			elif (('1' in month) or ('2' in month) or ('3' in month)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_winter.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_winter.tif"
 				
 			print ndvi
 
 			if (firewalls == 1):
 				print "firewalls personalizado"
-				firewalls = "../model_data/raster_data/reclass/firewalls.tif"
+				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
 			elif (firewalls == 0):
 				print "firewalls :) "
-				firewalls = "../model_data/raster_data/reclass/firewalls.tif"
+				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
 
-			temperature = "../model_data/raster_data/reclass/temperature_user.tif"
-			precipitations = "../model_data/raster_data/reclass/precipitations_user.tif"
-			humidity = "../model_data/raster_data/reclass/humidity_user.tif"
-			wind = "../model_data/raster_data/reclass/wind_user.tif"
+			temperature = "../../model/model_data/raster_data/reclass/temperature_user.tif"
+			precipitations = "../../model/model_data/raster_data/reclass/precipitations_user.tif"
+			humidity = "../../model/model_data/raster_data/reclass/humidity_user.tif"
+			wind = "../../model/model_data/raster_data/reclass/wind_user.tif"
 
 			input_temperature = QgsRasterLayer(temperature,'temperature')
 			input_precipitations = QgsRasterLayer(precipitations,'precipitations')
@@ -253,13 +253,13 @@ def runModel(meteo,firewalls,m):
 			raster15.bandNumber = 1
 			entries.append(raster15)
 			print "segundas capas cargadas"
-			output_ignition_risk = "../results/ignition_risk_user.tif"
+			output_ignition_risk = "../../model/results/ignition_risk_user.tif"
 
 			calc = QgsRasterCalculator('(4*((input6@1 + input7@1 + input9@1)/3))+(3*((input14@1 + input10@1 + input11@1)/3))+(input8@1)', output_ignition_risk, "GTiff", input_siose.extent(), input_siose.width(), input_siose.height(), entries)
 
 			calc.processCalculation()
 			print "calculado1"
-			output_propagation_risk = "../results/propagation_risk_user.tif"
+			output_propagation_risk = "../../model/results/propagation_risk_user.tif"
 
 			calc2 = QgsRasterCalculator('(5*(input1@1)) + (4*((input0@1+input13@1)/2)) + (3*(input2@1)) - ((input3@1+input15@1)+((0.6*input5@1)+(0.4*input4@1))) - (input12@1)', output_propagation_risk, "GTiff", input_siose.extent(), input_siose.width(), input_siose.height(), entries)
 
@@ -283,13 +283,13 @@ def runModel(meteo,firewalls,m):
 			rasterin2.bandNumber = 1
 			entriesin.append(rasterin2)
 			
-			output_risk = "../results/risk_user.tif"
+			output_risk = "../../model/results/risk_user.tif"
 
 			calc3 = QgsRasterCalculator('in1@1+in2@1', output_risk, "GTiff", in1.extent(), in1.width(), in1.height(), entriesin)
 
 			calc3.processCalculation()
 
-			la = "../model_data/vector_data/work_zone.shp"
+			la = "../../model/model_data/vector_data/work_zone.shp"
 			layer=QgsVectorLayer(la,"l","ogr")
 			QgsMapLayerRegistry.instance().addMapLayers([layer])
 
@@ -299,34 +299,34 @@ def runModel(meteo,firewalls,m):
 			ymin = extent.yMinimum()
 			ymax = extent.yMaximum()
 
-			output_risk_reclass = "../results/final/risk_user.tif"
+			output_risk_reclass = "../../model/results/final/risk_user.tif"
 
 			processing.runalg("grass7:r.reclass", output_risk,rules2, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, output_risk_reclass)
 			print "reclass"
 
 		else:
 			if ((4 == m) or (5 == m) or (6 == m)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_spring.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_spring.tif"
 			elif ((7 == m) or (8 == m) or (9 == m)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_summer.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_summer.tif"
 			elif ((10 == m) or (11 == m) or (12 == m)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_autumn.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_autumn.tif"
 			elif ((1 == m) or (2 == m) or (3 == m)):
-				ndvi = "../model_data/raster_data/reclass/NDVI_winter.tif"
+				ndvi = "../../model/model_data/raster_data/reclass/NDVI_winter.tif"
 			print ndvi
 
 			print "csv :) "
 			if (firewalls == 1):
 				print "firewalls personalizado"
-				firewalls = "../model_data/raster_data/reclass/firewalls.tif"
+				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
 			elif (firewalls == 0):
 				print "firewalls :) "
-				firewalls = "../model_data/raster_data/reclass/firewalls.tif"
+				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
 
-			temperature = "../model_data/raster_data/reclass/temperature_"+str(m)+".tif"
-			precipitations = "../model_data/raster_data/reclass/precipitations_"+str(m)+".tif"
-			humidity = "../model_data/raster_data/reclass/humidity_"+str(m)+".tif"
-			wind = "../model_data/raster_data/reclass/wind_"+str(m)+".tif"
+			temperature = "../../model/model_data/raster_data/reclass/temperature_"+str(m)+".tif"
+			precipitations = "../../model/model_data/raster_data/reclass/precipitations_"+str(m)+".tif"
+			humidity = "../../model/model_data/raster_data/reclass/humidity_"+str(m)+".tif"
+			wind = "../../model/model_data/raster_data/reclass/wind_"+str(m)+".tif"
 
 			input_temperature = QgsRasterLayer(temperature,'temperature')
 			input_precipitations = QgsRasterLayer(precipitations,'precipitations')
@@ -371,13 +371,13 @@ def runModel(meteo,firewalls,m):
 			raster15.bandNumber = 1
 			entries.append(raster15)
 			print "segundas capas cargadas"
-			output_ignition_risk = "../results/ignition_risk_user.tif"
+			output_ignition_risk = "../../model/results/ignition_risk_user.tif"
 
 			calc = QgsRasterCalculator('(4*((input6@1 + input7@1 + input9@1)/3))+(3*((input14@1 + input10@1 + input11@1)/3))+(input8@1)', output_ignition_risk, "GTiff", input_siose.extent(), input_siose.width(), input_siose.height(), entries)
 
 			calc.processCalculation()
 			print "calculado1"
-			output_propagation_risk = "../results/propagation_risk_user.tif"
+			output_propagation_risk = "../../model/results/propagation_risk_user.tif"
 
 			calc2 = QgsRasterCalculator('(5*(input1@1)) + (4*((input0@1+input13@1)/2)) + (3*(input2@1)) - ((input3@1+input15@1)+((0.6*input5@1)+(0.4*input4@1))) - (input12@1)', output_propagation_risk, "GTiff", input_siose.extent(), input_siose.width(), input_siose.height(), entries)
 
@@ -401,13 +401,13 @@ def runModel(meteo,firewalls,m):
 			rasterin2.bandNumber = 1
 			entriesin.append(rasterin2)
 			
-			output_risk = "../results/risk_user.tif"
+			output_risk = "../../model/results/risk_user.tif"
 
 			calc3 = QgsRasterCalculator('in1@1+in2@1', output_risk, "GTiff", in1.extent(), in1.width(), in1.height(), entriesin)
 
 			calc3.processCalculation()
 
-			la = "../model_data/vector_data/work_zone.shp"
+			la = "../../model/model_data/vector_data/work_zone.shp"
 			layer=QgsVectorLayer(la,"l","ogr")
 			QgsMapLayerRegistry.instance().addMapLayers([layer])
 
@@ -417,8 +417,8 @@ def runModel(meteo,firewalls,m):
 			ymin = extent.yMinimum()
 			ymax = extent.yMaximum()
 
-			output_risk_reclass = "../results/final/risk_user.tif"
-
+			output_risk_reclass = "../../model/results/final/risk_user.tif"
+			
 			processing.runalg("grass7:r.reclass", output_risk,rules2, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, output_risk_reclass)
 
 			print "reclass"
@@ -426,9 +426,13 @@ def runModel(meteo,firewalls,m):
 	 	print " :) "
 
 
-	QgsApplication.exitQgis() 
+	QgsApplication.exitQgis()
+	return 'model created'
 
-runModel(0,1,7)
+if __name__== '__main__':
+    runModel(0,1,7)
+
+
 
 
   

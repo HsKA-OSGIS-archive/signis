@@ -20,11 +20,13 @@
           <RasterSymbolizer>
             <Opacity>1.0</Opacity>
             <ColorMap>
-              <ColorMapEntry color="#FFCC32" quantity="0" label="label1" opacity="0"/>
-              <ColorMapEntry color="#3645CC" quantity="3" label="label2" opacity="1"/>
-              <ColorMapEntry color="#CC3636" quantity="4" label="label3" opacity="1"/>
-              <ColorMapEntry color="#BBBBBB" quantity="5" label="label4" opacity="1"/>
-      		</ColorMap>
+              <ColorMapEntry color="#bab6b6" quantity="0" label="0" opacity="1"/>
+	      <ColorMapEntry color="#1a7739" quantity="1" label="1" opacity="1"/>
+	      <ColorMapEntry color="#94db64" quantity="2" label="2" opacity="1"/>
+              <ColorMapEntry color="#dbbe81" quantity="3" label="3" opacity="1"/>
+              <ColorMapEntry color="#db8b29" quantity="4" label="4" opacity="1"/>
+              <ColorMapEntry color="#cc4c33" quantity="5" label="5" opacity="1"/>
+      	    </ColorMap>
           </RasterSymbolizer>
         </Rule>
       </FeatureTypeStyle>

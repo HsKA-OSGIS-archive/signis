@@ -75,9 +75,9 @@ do
 	    read -p "Do you wish to configure the application connection?" yn
 	    case $yn in
 		[Yy]* ) echo -ne "Configuring application connection...\n";
-			sed -i "83s/.*/        'NAME': '$databasePostgres',/" settings.py;
-			sed -i "84s/.*/        'USER': '$namePostgres',/" settings.py;
-			sed -i "85s/.*/        'PASSWORD': '$passPostgres',/" settings.py;
+			sed -i "84s/.*/        'NAME': '$databasePostgres',/" settings.py;
+			sed -i "85s/.*/        'USER': '$namePostgres',/" settings.py;
+			sed -i "86s/.*/        'PASSWORD': '$passPostgres',/" settings.py;
 			echo -ne "Application confidured for user $namePostgres"
 			break;;
 		[Nn]* ) break;;

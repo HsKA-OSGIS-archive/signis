@@ -488,7 +488,42 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
           </button>
           
           <div id="olMap" style="height:100%;width:100%; left:0;top:0; position: absolute; background-color: black;">
+            <div>
+                            <select id="selectLayer1" class="form-control validate" ng-click="changeLayerSwipe1(evt);" style="z-index: 999999;width: 200px;position:absolute;display:none; top:5%; left: 30%;">
+                               <option value="" disabled selected> Select one Model </option>
+                               <option value="13">own model</option>
+                               <option value="1">January</option>
+                               <option value="2">February</option>
+                               <option value="3">March</option>
+                               <option value="4">April</option>
+                               <option value="5">May</option>
+                               <option value="6">June</option>
+                               <option value="7">July</option>
+                               <option value="8">August</option>
+                               <option value="9">September</option>
+                               <option value="10">October</option>
+                               <option value="11">November</option>
+                               <option value="12">December</option>
+                           </select>
+                           
+                           <select id="selectLayer2" class="form-control validate" ng-click="changeLayerSwipe2(evt);" style="z-index: 999999;width: 200px;position:absolute;display:none; top:5%; right: 30%;">
+                               <option value="" disabled selected> Select other Model </option>
+                               <option value="13">own model</option>
+                               <option value="1">January</option>
+                               <option value="2">February</option>
+                               <option value="3">March</option>
+                               <option value="4">April</option>
+                               <option value="5">May</option>
+                               <option value="6">June</option>
+                               <option value="7">July</option>
+                               <option value="8">August</option>
+                               <option value="9">September</option>
+                               <option value="10">October</option>
+                               <option value="11">November</option>
+                               <option value="12">December</option>
+                           </select>
             
+            </div>
             <div id="legendLayer" style="position: fixed;display: block;top: 65px;right: 15px;z-index: 9;height: auto;width: auto; background-color: ghostwhite;
             border: 4px #384852 solid; padding: 5px;">
               <div id="headerLegendLayer" style="border-bottom: 1px black solid">Legend</div>
@@ -1153,6 +1188,8 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   olMap.addLayer(ZonasActuacionUrgente);
   capas_wms.push(ZonasActuacionUrgente);
   /* Conf to model */
+  var arrayModel = [];
+  
   var LayerDefaultModelJanuary =  new ol.layer.Tile({
     source: new ol.source.TileWMS({
       url: 'http://localhost:8080/geoserver/signis_osgis/wms',
@@ -1164,6 +1201,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelJanuary);
   capas_wms.push(LayerDefaultModelJanuary);
+  arrayModel.push(LayerDefaultModelJanuary);
   $scope.LoadLayerDefaultModelJanuary = function() {
     if (LayerDefaultModelJanuary.getVisible()==false) {
       LayerDefaultModelJanuary.setVisible(true); 
@@ -1183,6 +1221,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelFebruary);
   capas_wms.push(LayerDefaultModelFebruary);
+    arrayModel.push(LayerDefaultModelFebruary);
   $scope.LoadLayerDefaultModelFebruary = function() {
     if (LayerDefaultModelFebruary.getVisible()==false) {
       LayerDefaultModelFebruary.setVisible(true); 
@@ -1202,6 +1241,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelMarch);
   capas_wms.push(LayerDefaultModelMarch);
+      arrayModel.push(LayerDefaultModelMarch);
   $scope.LoadLayerDefaultModelMarch = function() {
     if (LayerDefaultModelMarch.getVisible()==false) {
       LayerDefaultModelMarch.setVisible(true); 
@@ -1221,6 +1261,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelApril);
   capas_wms.push(LayerDefaultModelApril);
+        arrayModel.push(LayerDefaultModelApril);
   $scope.LoadLayerDefaultModelApril = function() {
     if (LayerDefaultModelApril.getVisible()==false) {
       LayerDefaultModelApril.setVisible(true); 
@@ -1240,6 +1281,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelMay);
   capas_wms.push(LayerDefaultModelMay);
+        arrayModel.push(LayerDefaultModelMay);
   $scope.LoadLayerDefaultModelMay = function() {
     if (LayerDefaultModelMay.getVisible()==false) {
       LayerDefaultModelMay.setVisible(true); 
@@ -1259,6 +1301,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelJuny);
   capas_wms.push(LayerDefaultModelJuny);
+        arrayModel.push(LayerDefaultModelJuny);
   $scope.LoadLayerDefaultModelJuny = function() {
     if (LayerDefaultModelJuny.getVisible()==false) {
       LayerDefaultModelJuny.setVisible(true); 
@@ -1278,6 +1321,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelJuly);
   capas_wms.push(LayerDefaultModelJuly);
+          arrayModel.push(LayerDefaultModelJuly);
   $scope.LoadLayerDefaultModelJuly = function() {
     if (LayerDefaultModelJuly.getVisible()==false) {
       LayerDefaultModelJuly.setVisible(true); 
@@ -1297,6 +1341,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelAugust);
   capas_wms.push(LayerDefaultModelAugust);
+            arrayModel.push(LayerDefaultModelAugust);
   $scope.LoadLayerDefaultModelAugust = function() {
     if (LayerDefaultModelAugust.getVisible()==false) {
       LayerDefaultModelAugust.setVisible(true); 
@@ -1316,6 +1361,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelSeptember);
   capas_wms.push(LayerDefaultModelSeptember);
+  arrayModel.push(LayerDefaultModelSeptember);
   $scope.LoadLayerDefaultModelSeptember = function() {
     if (LayerDefaultModelSeptember.getVisible()==false) {
       LayerDefaultModelSeptember.setVisible(true); 
@@ -1335,6 +1381,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelOctober);
   capas_wms.push(LayerDefaultModelOctober);
+  arrayModel.push(LayerDefaultModelOctober);
   $scope.LoadLayerDefaultModelOctober = function() {
     if (LayerDefaultModelOctober.getVisible()==false) {
       LayerDefaultModelOctober.setVisible(true); 
@@ -1354,6 +1401,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelNovember);
   capas_wms.push(LayerDefaultModelNovember);
+  arrayModel.push(LayerDefaultModelNovember);
   $scope.LoadLayerDefaultModelNovember = function() {
     if (LayerDefaultModelNovember.getVisible()==false) {
       LayerDefaultModelNovember.setVisible(true); 
@@ -1373,6 +1421,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerDefaultModelDecember);
   capas_wms.push(LayerDefaultModelDecember);
+  arrayModel.push(LayerDefaultModelDecember);
   $scope.LoadLayerDefaultModelDecember = function() {
     if (LayerDefaultModelDecember.getVisible()==false) {
       LayerDefaultModelDecember.setVisible(true); 
@@ -1392,6 +1441,7 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   });
   olMap.addLayer(LayerOwnModel);
   capas_wms.push(LayerOwnModel);
+  arrayModel.push(LayerOwnModel);
   $scope.LoadLayerOwnModel = function() {
     if (LayerOwnModel.getVisible()==false) {
       LayerOwnModel.setVisible(true); 
@@ -1443,11 +1493,29 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
             // OSM on right
             ctrl1.addLayer(ZonasActuacionUrgente, true);
             dC = 1;
+            document.getElementById('selectLayer1').style.display = 'block';
+            document.getElementById('selectLayer2').style.display = 'block';
         }else if (dC == 1){
             olMap.removeControl(ctrl1);
             dC = 0;
+            document.getElementById('selectLayer1').style.display = 'none';
+            document.getElementById('selectLayer2').style.display = 'none';
         }
-    };    
+    };  
+    $scope.changeLayerSwipe1 = function(evt) {
+
+        var e = document.getElementById('selectLayer1');
+        var selectLayer1 = e.options[e.selectedIndex].value;
+        if (selectLayer1 != ''){
+            console.log(selectLayer1);
+            ctrl1.addLayer(arrayModel[selectLayer1]);
+         }
+    };
+    
+    $scope.changeLayerSwipe2 = function() {
+    
+    };
+     
 
         // Capas de incendios forestales
         var i = 46;

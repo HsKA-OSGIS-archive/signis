@@ -28,9 +28,85 @@ import csv
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
-def runModel(meteo,firewalls,m=1):
+def runModel(meteo,firewalls_input,m=1):
 
 	Processing.initialize() 
+
+	def vector(input,values):
+	    
+	    buffer = []
+	    merge = []
+		
+            rules = "../../model/model_data/rules/firewalls.txt"
+	    zone = "../../model/model_data/vector_data/work_zone.shp"
+	    
+	    for i in range(len(values)):
+
+		val = []
+		distance = values[i]
+		out = "../../model/model_data/vector_data/b/user_b_"+str(distance)+".shp"
+		
+		processing.runalg('qgis:fixeddistancebuffer', input, distance, 50, True, out)
+		print "buffer"
+		
+		out1 = "../../model/model_data/vector_data/f/user_f_"+str(distance)+".shp"
+		
+		processing.runalg('qgis:addfieldtoattributestable', out, "d", 1, 10, 5, out1)
+		print "field"
+
+		layer=QgsVectorLayer(out1,"l","ogr")
+		QgsMapLayerRegistry.instance().addMapLayers([layer])
+
+		features=layer.getFeatures()
+
+		layer.startEditing()
+		for feat in features:
+		    d = feat.fieldNameIndex("d")
+		    layer.changeAttributeValue(feat.id(), d, distance)
+			
+		layer.commitChanges()
+		print "field modified"
+
+		val.append(distance)
+		val.append(out1)
+		buffer.append(val)
+
+	    for j in range(len(buffer)-1):
+		print "enter"
+		dis = buffer[j+1][0]
+		input1 = buffer[j][1]
+		input2 = buffer[j+1][1]
+		print dis, input1, input2
+		out2="../../model/model_data/vector_data/d/user_d_"+str(dis)+".shp"
+		
+		processing.runalg('qgis:difference', input2, input1, True, out2)
+		merge.append(out2)
+
+	    out3 = "../../model/model_data/vector_data/m/user_m.shp"
+
+	    merge.append(buffer[0][1])
+	    processing.runalg('qgis:mergevectorlayers', merge,out3)
+	    print "merged"
+	     
+	    out4 = "../../model/model_data/raster_data/raw/firewalls_user.tif"
+
+	    layer2=QgsVectorLayer(zone,"l","ogr")
+	    QgsMapLayerRegistry.instance().addMapLayers([layer2])
+
+	    extent = layer2.extent()
+	    xmin = extent.xMinimum()
+	    xmax = extent.xMaximum()
+	    ymin = extent.yMinimum()
+	    ymax = extent.yMaximum()
+
+	    processing.runalg('gdalogr:rasterize', out3,'d',1,10.0,10.0,"%f,%f,%f,%f" %(xmin, xmax, ymin, ymax),False,5,None,4,75.0,6.0,1.0,False,2,None,out4)
+
+	    print "rasterized"
+
+	    out5 = "../../model/model_data/raster_data/reclass/firewalls_user.tif"
+	    processing.runalg("grass7:r.reclass", out4,rules, "", "%f,%f,%f,%f"% (xmin, xmax, ymin, ymax), 0, out5)
+
+	    print "reclassified"
 
 	def stations_join(tableC, tableV, month):
 
@@ -161,7 +237,7 @@ def runModel(meteo,firewalls,m=1):
 	entries.append(raster9)
 	print "primeras capas cargadas"
 
-	if ((meteo == 1) or (firewalls == 1)):
+	if ((meteo == 1) or (firewalls_input == 1)):
 
 		if (meteo == 1):
 			print "csv personalizado"
@@ -198,10 +274,16 @@ def runModel(meteo,firewalls,m=1):
 				
 			print ndvi
 
-			if (firewalls == 1):
+			if (firewalls_input == 1):
 				print "firewalls personalizado"
-				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
-			elif (firewalls == 0):
+				uri = QgsDataSourceURI ()
+				uri.setConnection ("localhost","5432","signis_osgis","user","user")
+				uri.setDataSource ("public","firewalls_firewalls","geom")
+				firewalls_v = QgsVectorLayer ( uri.uri (), "firewalls","postgres")
+				vector(firewalls_v,[10,15])
+				firewalls = "../../model/model_data/raster_data/reclass/firewalls_user.tif"
+
+			elif (firewalls_input == 0):
 				print "firewalls :) "
 				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
 
@@ -316,10 +398,17 @@ def runModel(meteo,firewalls,m=1):
 			print ndvi
 
 			print "csv :) "
-			if (firewalls == 1):
+			if (firewalls_input == 1):
 				print "firewalls personalizado"
-				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
-			elif (firewalls == 0):
+				uri = QgsDataSourceURI ()
+				uri.setConnection ("localhost","5432","signis_osgis","user","user")
+				uri.setDataSource ("public","firewalls_firewalls","geom")
+				firewalls_v = QgsVectorLayer ( uri.uri (), "firewalls","postgres")
+				vector(firewalls_v,[10,15])
+				firewalls = "../../model/model_data/raster_data/reclass/firewalls_user.tif"
+
+
+			elif (firewalls_input == 0):
 				print "firewalls :) "
 				firewalls = "../../model/model_data/raster_data/reclass/firewalls.tif"
 
@@ -426,7 +515,7 @@ def runModel(meteo,firewalls,m=1):
 	 	print " :) "
 
 
-	QgsApplication.exitQgis()
+	#QgsApplication.exitQgis()
 	return 'model created'
 
 if __name__== '__main__':

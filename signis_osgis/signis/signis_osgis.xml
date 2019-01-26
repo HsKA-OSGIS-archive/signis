@@ -1,1 +1,1 @@
-<dataStore><name>signis_osgis</name><connectionParameters><host>localhost</host><port>5432</port><database>signis_osgis</database><schema>public</schema><user>postgres</user><passwd>Kowabunga7X</passwd><dbtype>postgis</dbtype></connectionParameters></dataStore>
+<dataStore><name>signis_osgis</name><connectionParameters><host>localhost</host><port>5432</port><database>signis</database><schema>public</schema><user>jorherol</user><passwd>jho18451198t</passwd><dbtype>postgis</dbtype></connectionParameters></dataStore>

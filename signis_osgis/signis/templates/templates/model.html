@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load staticfiles %}
 
 {% block title %}
 Model
@@ -86,7 +87,6 @@ Model
     }
 
 </style>
-<form method="post">
     {% csrf_token %}
      <!-- Grid row -->
     <div class="row" style="position: absolute; width: 100%; height: 100%; transform: translateY(10%); justify-content: center;">
@@ -127,19 +127,20 @@ Model
                         <label style="color:rgba(43, 187, 173)">CSV from Valencia:</label>
                         <form ref='uploadForm'
                           id='f_select_input'
-                          action='/upload/'
+                          action='upload/'
                           method='post'
                           encType="multipart/form-data">{% csrf_token %}
-                            <input type="file" class="form-control" id="fileupload" name="myFile" accept=".html"/>
+                            <input type="file" class="form-control" id="fileupload" name="userV" accept=".csv"/>
                             <input type="hidden" class="form-control" name="_csrf" value="<your_csrf_token>" />
+                            <input type='submit' class="form-control"/>
                         </form>
                         <label for="id" style="color:rgba(43, 187, 173)">CSV from Castellon:</label>
                         <form ref='uploadForm'
                           id='f_select_input1'
-                          action='/upload/'
+                          action='upload/'
                           method='post'
                           encType="multipart/form-data">{% csrf_token %}
-                            <input type="file" class="form-control" id="fileupload1" name="myFile" accept=".html"/>
+                            <input type="file" class="form-control" id="fileupload1" name="userC" accept=".csv"/>
                             <input type="hidden" class="form-control" name="_csrf" value="<your_csrf_token>" />
                         </form>
                     </div> 
@@ -162,7 +163,6 @@ Model
             </div>
         </div>
     </div>
-</form>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <script type="text/javascript">
@@ -172,7 +172,7 @@ Model
       $('.form-group').show();
     }
     
-    $('input[value="radiobutton2"]').on('change', this, function(){
+    $('input[value="1"]').on('change', this, function(){
      funcion1();
     });
     
@@ -183,7 +183,8 @@ Model
     }
     
     // Ejemplo 1
-    $('input[value="radiobutton1"]').on('change', this, function(){
+    $('input[value="0"]').on('change', this, function(){
+     console.log($('#fileupload1').get(0).files);
      funcion2();
     });
     
@@ -216,17 +217,35 @@ Model
                 }
             }
         });
+        //document.getElementById('card2').style.display = 'block';
+        
+        var data = new FormData($('#f_select_input').get(0));
+        console.log(data);
         
         $.ajax({
+            url: $('#f_select_input').attr('action'),
+            type: $('#f_select_input').attr('method'),
+            data: data,
+            cache: false,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                alert('success');
+            }
+        });
+        
+        /*$.ajax({
             url : '{% url 'models_firerisk:model_new' %}',
             data : { meteo:1, firewalls:1, month:1 },
             type : 'POST',
             dataType : 'json',
             success : function(json) {
-                document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall inserted';
+                console.log(json);
+                location.href = "{% url 'viewer' %}";
+                //document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall inserted';
             },
             csrfmiddlewaretoken: '{{ csrf_token }}'
-        });
+        });*/
     }
 </script>
 {% endblock %}

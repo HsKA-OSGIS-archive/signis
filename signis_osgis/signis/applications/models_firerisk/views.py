@@ -18,12 +18,11 @@ from django.conf import settings
 from applications.firewalls.forms import FirewallsForm"""
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponse
 
 
 # Create your views here.
 def model(request):
-    print request
     if request.method == 'POST':
         m = request.POST['meteo']
         f = request.POST['firewalls']
@@ -33,18 +32,28 @@ def model(request):
         dicc ={}
         dicc['1'] = ms
         r = json.dumps(dicc)
-        return JsonResponse(r, safe=False)
+        return HttpResponseRedirect("/viewer/")
     
 if __name__== '__main__':
     test_model.runModel(0,1,7)
     
-def uploadCSV(request):
+def uploadCSV_Valencia(request):
     doc_to_save = request.FILES['userV']
-    filename = doc_to_save._get_name()
-    filename = os.path.basename(filename)
-    fd = open('../../model/model_data/meteo_data/' + str(filename), 'wb')
-    
+    #filename = doc_to_save._get_name()
+    #filename = os.path.basename(filename)
+    fd = open('../../model/model_data/meteo_data/' + str('userV.csv'), 'wb')
     for chunk in doc_to_save.chunks():
         fd.write(chunk)
     fd.close()
-    return HttpResponseRedirect("/?data=" + filename)
+    return HttpResponseRedirect("/models/creating/")
+
+def uploadCSV_Castellon(request):
+    doc_to_save = request.FILES['userC']
+    #filename = doc_to_save._get_name()
+    #filename = os.path.basename(filename)
+    fd = open('../../model/model_data/meteo_data/' + str('userC.csv'), 'wb')
+    for chunk in doc_to_save.chunks():
+        fd.write(chunk)
+    fd.close()
+    return HttpResponseRedirect("/models/creating/")
+

@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^viewer/', include('applications.firewalls.urls', namespace='firewalls')),
     url(r'^models/createmodel/', include('applications.models_firerisk.urls', namespace='models_firerisk')),
     url(r'^models/createmodel/', login, {'template_name':'templates/model.html'}, name='model'),
+    url(r'^models/creating/', login, {'template_name':'templates/loader.html'}, name='loader'),
     url(r'^users/', include('applications.users.urls', namespace='users')),
     url(r'^login/', login, {'template_name':'login.html'}, name='login'),
     url(r'^$', login, {'template_name':'index.html'}, name='index'),

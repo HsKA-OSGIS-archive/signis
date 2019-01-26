@@ -1204,10 +1204,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   arrayModel.push(LayerDefaultModelJanuary);
   $scope.LoadLayerDefaultModelJanuary = function() {
     if (LayerDefaultModelJanuary.getVisible()==false) {
-      LayerDefaultModelJanuary.setVisible(true); 
+      LayerDefaultModelJanuary.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend;  
         }              
     else {
       LayerDefaultModelJanuary.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelFebruary =  new ol.layer.Tile({
@@ -1224,10 +1227,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
     arrayModel.push(LayerDefaultModelFebruary);
   $scope.LoadLayerDefaultModelFebruary = function() {
     if (LayerDefaultModelFebruary.getVisible()==false) {
-      LayerDefaultModelFebruary.setVisible(true); 
+      LayerDefaultModelFebruary.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend;  
         }              
     else {
       LayerDefaultModelFebruary.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelMarch =  new ol.layer.Tile({
@@ -1244,10 +1250,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
       arrayModel.push(LayerDefaultModelMarch);
   $scope.LoadLayerDefaultModelMarch = function() {
     if (LayerDefaultModelMarch.getVisible()==false) {
-      LayerDefaultModelMarch.setVisible(true); 
+      LayerDefaultModelMarch.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelMarch.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelApril =  new ol.layer.Tile({
@@ -1264,10 +1273,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         arrayModel.push(LayerDefaultModelApril);
   $scope.LoadLayerDefaultModelApril = function() {
     if (LayerDefaultModelApril.getVisible()==false) {
-      LayerDefaultModelApril.setVisible(true); 
+      LayerDefaultModelApril.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelApril.setVisible(false);
+      document.getElementById('imageLegendLayer').src = ''; 
         }
   };
   var LayerDefaultModelMay =  new ol.layer.Tile({
@@ -1284,10 +1296,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         arrayModel.push(LayerDefaultModelMay);
   $scope.LoadLayerDefaultModelMay = function() {
     if (LayerDefaultModelMay.getVisible()==false) {
-      LayerDefaultModelMay.setVisible(true); 
+      LayerDefaultModelMay.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelMay.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelJuny =  new ol.layer.Tile({
@@ -1304,10 +1319,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         arrayModel.push(LayerDefaultModelJuny);
   $scope.LoadLayerDefaultModelJuny = function() {
     if (LayerDefaultModelJuny.getVisible()==false) {
-      LayerDefaultModelJuny.setVisible(true); 
+      LayerDefaultModelJuny.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend;  
         }              
     else {
       LayerDefaultModelJuny.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelJuly =  new ol.layer.Tile({
@@ -1324,10 +1342,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
           arrayModel.push(LayerDefaultModelJuly);
   $scope.LoadLayerDefaultModelJuly = function() {
     if (LayerDefaultModelJuly.getVisible()==false) {
-      LayerDefaultModelJuly.setVisible(true); 
+      LayerDefaultModelJuly.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelJuly.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelAugust =  new ol.layer.Tile({
@@ -1344,10 +1365,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
             arrayModel.push(LayerDefaultModelAugust);
   $scope.LoadLayerDefaultModelAugust = function() {
     if (LayerDefaultModelAugust.getVisible()==false) {
-      LayerDefaultModelAugust.setVisible(true); 
+      LayerDefaultModelAugust.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelAugust.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelSeptember =  new ol.layer.Tile({
@@ -1364,10 +1388,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   arrayModel.push(LayerDefaultModelSeptember);
   $scope.LoadLayerDefaultModelSeptember = function() {
     if (LayerDefaultModelSeptember.getVisible()==false) {
-      LayerDefaultModelSeptember.setVisible(true); 
+      LayerDefaultModelSeptember.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelSeptember.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerDefaultModelOctober =  new ol.layer.Tile({
@@ -1384,10 +1411,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   arrayModel.push(LayerDefaultModelOctober);
   $scope.LoadLayerDefaultModelOctober = function() {
     if (LayerDefaultModelOctober.getVisible()==false) {
-      LayerDefaultModelOctober.setVisible(true); 
+      LayerDefaultModelOctober.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelOctober.setVisible(false);
+      document.getElementById('imageLegendLayer').src = ''; 
         }
   };
   var LayerDefaultModelNovember =  new ol.layer.Tile({
@@ -1404,10 +1434,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   arrayModel.push(LayerDefaultModelNovember);
   $scope.LoadLayerDefaultModelNovember = function() {
     if (LayerDefaultModelNovember.getVisible()==false) {
-      LayerDefaultModelNovember.setVisible(true); 
+      LayerDefaultModelNovember.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelNovember.setVisible(false);
+      document.getElementById('imageLegendLayer').src = ''; 
         }
   };
   var LayerDefaultModelDecember =  new ol.layer.Tile({
@@ -1424,10 +1457,13 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
   arrayModel.push(LayerDefaultModelDecember);
   $scope.LoadLayerDefaultModelDecember = function() {
     if (LayerDefaultModelDecember.getVisible()==false) {
-      LayerDefaultModelDecember.setVisible(true); 
+      LayerDefaultModelDecember.setVisible(true);
+      var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+      document.getElementById('imageLegendLayer').src = imgLegend; 
         }              
     else {
       LayerDefaultModelDecember.setVisible(false);
+      document.getElementById('imageLegendLayer').src = '';
         }
   };
   var LayerOwnModel =  new ol.layer.Tile({
@@ -1488,32 +1524,38 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         if (dC == 0) {
             // Control
             olMap.addControl(ctrl1);
-            // Set stamen on left
-            ctrl1.addLayer(PlanesLocalesQuemas);
-            // OSM on right
-            ctrl1.addLayer(ZonasActuacionUrgente, true);
+            var imgLegend = 'http://localhost:8080/geoserver/signis_osgis/wms?service=wms&VERSION=1.0.0&request=GetLegendGraphic&FORMAT=image/png&LEGEND_OPTIONS=forceLabels:on&LAYER=signis_osgis:risk1';
+            document.getElementById('imageLegendLayer').src = imgLegend;
             dC = 1;
             document.getElementById('selectLayer1').style.display = 'block';
             document.getElementById('selectLayer2').style.display = 'block';
         }else if (dC == 1){
             olMap.removeControl(ctrl1);
+            document.getElementById('imageLegendLayer').src = '';
             dC = 0;
             document.getElementById('selectLayer1').style.display = 'none';
             document.getElementById('selectLayer2').style.display = 'none';
         }
-    };  
+    }; 
+     
     $scope.changeLayerSwipe1 = function(evt) {
-
         var e = document.getElementById('selectLayer1');
         var selectLayer1 = e.options[e.selectedIndex].value;
         if (selectLayer1 != ''){
             console.log(selectLayer1);
+            arrayModel[selectLayer1].setVisible(true);
             ctrl1.addLayer(arrayModel[selectLayer1]);
          }
     };
     
     $scope.changeLayerSwipe2 = function() {
-    
+        var e = document.getElementById('selectLayer2');
+        var selectLayer2 = e.options[e.selectedIndex].value;
+        if (selectLayer2 != ''){
+            console.log(selectLayer2);
+            arrayModel[selectLayer2].setVisible(true);
+            ctrl1.addLayer(arrayModel[selectLayer2], true);
+         }
     };
      
 

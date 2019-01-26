@@ -168,7 +168,7 @@ do
 			path=$(pwd)
 			echo -ne "Configuring stores and layers......"
 			array=("risk1" "risk2" "risk3" "risk4" "risk5" "risk6" "risk7" "risk8" "risk9" "risk10" "risk11" "risk12" "risk_user")
-			boundingBox='<nativeBoundingBox><minx>225370.7346</minx><maxx>774629.2654</maxx><miny>3849419.9580</miny><maxy>6914547.3835</maxy></nativeBoundingBox><latLonBoundingBox><minx>-6.0</minx><maxx>0.0</maxx><miny>34.75</miny><maxy>62.33</maxy><crs>EPSG:3042</crs></latLonBoundingBox>'
+			latLonBoundingBox='<nativeBoundingBox><minx>225370.7346</minx><maxx>774629.2654</maxx><miny>3849419.9580</miny><maxy>6914547.3835</maxy></nativeBoundingBox><latLonBoundingBox><minx>-6.0</minx><maxx>0.0</maxx><miny>34.75</miny><maxy>62.33</maxy><crs>EPSG:3042</crs></latLonBoundingBox>'
 			echo -ne '\n###################      (70%)\n'
 			sleep 1
 			ite=70

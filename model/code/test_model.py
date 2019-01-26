@@ -7,7 +7,7 @@ from qgis.gui import *
 from PyQt4.QtCore import * 
 from PyQt4.QtGui import * 
 from qgis.utils import * 
-
+from django.conf import settings
 from os.path import expanduser
 #    Configure QGIS directories and start the app 
 #    Not to be used in QGIS python editor 
@@ -27,6 +27,12 @@ import csv
 
 reload(sys)  
 sys.setdefaultencoding('utf8')
+
+settingsUser = settings.DATABASES['default']['USER']
+password = settings.DATABASES['default']['PASSWORD']
+name = settings.DATABASES['default']['NAME']
+
+#print user, password, name
 
 def runModel(meteo,firewalls_input,m=1):
 
@@ -277,7 +283,7 @@ def runModel(meteo,firewalls_input,m=1):
 			if (firewalls_input == 1):
 				print "firewalls personalizado"
 				uri = QgsDataSourceURI ()
-				uri.setConnection ("localhost","5432","signis_osgis","user","user")
+				uri.setConnection ("localhost","5432",name,settingsUser,password)
 				uri.setDataSource ("public","firewalls_firewalls","geom")
 				firewalls_v = QgsVectorLayer ( uri.uri (), "firewalls","postgres")
 				vector(firewalls_v,[10,15])
@@ -401,7 +407,7 @@ def runModel(meteo,firewalls_input,m=1):
 			if (firewalls_input == 1):
 				print "firewalls personalizado"
 				uri = QgsDataSourceURI ()
-				uri.setConnection ("localhost","5432","signis_osgis","user","user")
+				uri.setConnection ("localhost","5432",name,settingsUser,password)
 				uri.setDataSource ("public","firewalls_firewalls","geom")
 				firewalls_v = QgsVectorLayer ( uri.uri (), "firewalls","postgres")
 				vector(firewalls_v,[10,15])

@@ -3,7 +3,7 @@
 # SERVER SIGNIS
 echo "Starting..."
 cd signis_osgis
-# source bin/activate
+source bin/activate
 # echo "Virtual environment"
 echo ""
 echo "HELLO! I'm a software to start the signis application."

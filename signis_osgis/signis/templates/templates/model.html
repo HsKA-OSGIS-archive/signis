@@ -127,17 +127,16 @@ Model
                         <label style="color:rgba(43, 187, 173)">CSV from Valencia:</label>
                         <form ref='uploadForm'
                           id='f_select_input'
-                          action='upload/'
+                          action='uploadV/'
                           method='post'
                           encType="multipart/form-data">{% csrf_token %}
                             <input type="file" class="form-control" id="fileupload" name="userV" accept=".csv"/>
                             <input type="hidden" class="form-control" name="_csrf" value="<your_csrf_token>" />
-                            <input type='submit' class="form-control"/>
                         </form>
                         <label for="id" style="color:rgba(43, 187, 173)">CSV from Castellon:</label>
                         <form ref='uploadForm'
                           id='f_select_input1'
-                          action='upload/'
+                          action='uploadC/'
                           method='post'
                           encType="multipart/form-data">{% csrf_token %}
                             <input type="file" class="form-control" id="fileupload1" name="userC" accept=".csv"/>
@@ -147,11 +146,11 @@ Model
                     <br>
                     <strong><p style="color:rgb(43, 187, 173);">Firewalls<p></strong>
                     <label class="md-radio"> 
-                      <input id="radiobutton3" type="radio" name="g1" value="0" checked>Default
+                      <input id="radiobutton3" type="radio" name="g1" value="2" checked>Default
                     </label> 
                     
                     <label class="md-radio"> 
-                      <input id="radiobutton4" style="margin-left: 40px"type="radio" value="1" name="g1" >Customized
+                      <input id="radiobutton4" style="margin-left: 40px"type="radio" value="3" name="g1" >Customized
                     </label> 
                     <div class="text-center">
                       <a onclick="createModel();" class="btn btn-default waves-effect waves-light">Create Model</a>
@@ -166,13 +165,16 @@ Model
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <script type="text/javascript">
-    //Funcion RadioButton   
+    //Funcion RadioButton
+    var inputFile = 0;
+    var firewalls = 0;   
     function funcion1() {
      $('.selectdiv').hide();
       $('.form-group').show();
     }
     
     $('input[value="1"]').on('change', this, function(){
+     inputFile = 1;
      funcion1();
     });
     
@@ -184,8 +186,16 @@ Model
     
     // Ejemplo 1
     $('input[value="0"]').on('change', this, function(){
-     console.log($('#fileupload1').get(0).files);
+     inputFile = 0;
      funcion2();
+    });
+    
+    $('input[value="2"]').on('change', this, function(){
+     firewalls = 0;
+    });
+    
+    $('input[value="3"]').on('change', this, function(){
+     firewalls = 1;
     });
     
     function createModel(){
@@ -217,26 +227,18 @@ Model
                 }
             }
         });
-        //document.getElementById('card2').style.display = 'block';
         
-        var data = new FormData($('#f_select_input').get(0));
-        console.log(data);
+        //console.log(firewalls);
+        if (inputFile == 1) {
+            $('#f_select_input').submit();
+            $('#f_select_input1').submit();
+        } else {
+            location.href = "{% url 'loader' %}";
+        }
         
         $.ajax({
-            url: $('#f_select_input').attr('action'),
-            type: $('#f_select_input').attr('method'),
-            data: data,
-            cache: false,
-            processData: false,
-            contentType: false,
-            success: function(data) {
-                alert('success');
-            }
-        });
-        
-        /*$.ajax({
             url : '{% url 'models_firerisk:model_new' %}',
-            data : { meteo:1, firewalls:1, month:1 },
+            data : { meteo:inputFile, firewalls:firewalls, month:1 },
             type : 'POST',
             dataType : 'json',
             success : function(json) {
@@ -245,7 +247,7 @@ Model
                 //document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall inserted';
             },
             csrfmiddlewaretoken: '{{ csrf_token }}'
-        });*/
+        });
     }
 </script>
 {% endblock %}

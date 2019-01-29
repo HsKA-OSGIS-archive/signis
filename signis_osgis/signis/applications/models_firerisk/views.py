@@ -27,7 +27,8 @@ def model(request):
         m = request.POST['meteo']
         f = request.POST['firewalls']
         n_month = request.POST['month']
-        ms = test_model.runModel(int(m),int(f),int(n_month))
+        print m, f, n_month
+        ms = test_model.runModel(meteo=int(m),firewalls_input=int(f),m=int(n_month))
         print ms
         dicc ={}
         dicc['1'] = ms

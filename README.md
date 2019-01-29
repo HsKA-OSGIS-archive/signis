@@ -4,17 +4,17 @@ This project is focussed in the development of a fire risk model and a web platf
 
 ## Getting Started
 
-To start de application you can run the script 'runscript.sh'. It's a face to face with the software, guiding you throught the configuration of the application. 
+To start de application you can run the script 'runserver.sh'. It's a face to face with the software, guiding you throught the configuration of the application. 
 
 ### Prerequisites
 
 It's hardly recommended that you have in your computer the following tools:
-* Apache
 * Tomcat
 * Geoserver
-* Django
+* Qgis 2
+* PostgreSQL
 
-NOTE: it's hardly recommended to set the tomcat filter for CORS. In the web.xml, commonly stored in /opt/tomcat/conf/, type the following lines:
+NOTE: it's recommended to set the tomcat filter for CORS. In the web.xml, commonly stored in /opt/tomcat/conf/, type the following lines:
 ```
 <filter>
   <filter-name>CorsFilter</filter-name>
@@ -50,8 +50,14 @@ To build the application you can run in the directory of the repository:
 ```
 ./runserver.sh
 ```
-To configure the application, press the option 1 and follow the instructions.
+To configure the application, press the option 1 and follow the instructions. Then, you can open the navigator in:
+```
+http://localhost:8000
+```
 
+## Limitations
+
+The project is builded with Django 1.11, Python 2 and you need to run the model QGIS 2.
 
 ## Built With
 

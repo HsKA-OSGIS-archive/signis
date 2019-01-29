@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'signis.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'signis',
-        'USER': '',
-        'PASSWORD': '',
+        'NAME': 'signis_osgis',
+        'USER': 'jorherol',
+        'PASSWORD': 'jho18451198t',
         'HOST': 'localhost',
         'PORT': 5432,
     }

@@ -106,7 +106,7 @@ Model
                     </label> 
                     <div class="selectdiv">
                         <label style="width:100%;">
-                           <select class="form-control validate">
+                           <select class="form-control validate" id="selectMonth" onclick="changeMonth();">
                                <option value="" disabled selected> Select Month </option>
                                <option value="1">January</option>
                                <option value="2">February</option>
@@ -198,6 +198,13 @@ Model
      firewalls = 1;
     });
     
+    var selectMonth = 0;
+    function changeMonth(){
+        var e = document.getElementById('selectMonth');
+        selectMonth = e.options[e.selectedIndex].value;
+        console.log(selectMonth);
+    };
+    
     function createModel(){
         function getCookie(name) {
             var cookieValue = null;
@@ -232,22 +239,31 @@ Model
         if (inputFile == 1) {
             $('#f_select_input').submit();
             $('#f_select_input1').submit();
-        } else {
-            location.href = "{% url 'loader' %}";
         }
         
-        $.ajax({
-            url : '{% url 'models_firerisk:model_new' %}',
-            data : { meteo:inputFile, firewalls:firewalls, month:1 },
-            type : 'POST',
-            dataType : 'json',
-            success : function(json) {
-                console.log(json);
-                location.href = "{% url 'viewer' %}";
-                //document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall inserted';
-            },
-            csrfmiddlewaretoken: '{{ csrf_token }}'
-        });
+        if (selectMonth == 0) {
+            alert('You have to choose one month');
+        }           
+        else if (inputFile == 0 && firewalls == 0 && selectMonth != 0) {
+            var r = confirm('Model already available. Activate the layer "risk ' + selectMonth + '" to see it.\n' + 'Press Acept to go back to the viewer');
+            if (r == true) {
+              location.href = "{% url 'viewer' %}";
+            }
+        } else{
+            location.href = "{% url 'loader' %}";
+            $.ajax({
+                url : '{% url 'models_firerisk:model_new' %}',
+                data : { meteo:inputFile, firewalls:firewalls, month:selectMonth },
+                type : 'POST',
+                dataType : 'json',
+                success : function(json) {
+                    console.log(json);
+                    location.href = "{% url 'viewer' %}";
+                    //document.getElementById('mensaje').innerHTML = '<strong>Success! </strong>' + 'Firewall inserted';
+                },
+                csrfmiddlewaretoken: '{{ csrf_token }}'
+            });
+        }
     }
 </script>
 {% endblock %}

@@ -34,7 +34,7 @@ name = settings.DATABASES['default']['NAME']
 
 #print user, password, name
 
-def runModel(meteo,firewalls_input,m=1):
+def runModel(meteo,firewalls_input,m):
 
 	Processing.initialize() 
 
@@ -260,11 +260,11 @@ def runModel(meteo,firewalls_input,m=1):
 				cont = cont + 1
 
 			# join tables
-			#stations_join(csvC, csvV, month)
+			stations_join(csvC, csvV, month)
 
 			# Interpolation
-			#input = "../../model/model_data/vector_data/meteo/meteo_user.shp"
-			#station_interpolation(input)
+			input = "../../model/model_data/vector_data/meteo/meteo_user.shp"
+			station_interpolation(input)
 
 			# Take NDVI depending on the month
 			season = "none"

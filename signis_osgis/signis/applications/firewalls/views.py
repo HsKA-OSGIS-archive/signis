@@ -12,6 +12,7 @@ from applications.firewalls.forms import FirewallsForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.http import JsonResponse
+from django.conf import settings
 
 # Create your views here.
 def firewalls_insert(request):
@@ -21,7 +22,7 @@ def firewalls_insert(request):
         descript = request.POST['descript']
         
         # Connect to the database
-        conn = psycopg2.connect(database='signis', user='jorherol', password='jho18451198t', host='localhost', port='5432')
+        conn = psycopg2.connect(database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD'], host='localhost', port='5432')
         cursor = conn.cursor()
         d_conn = {}
         d_conn['conn'] = conn
@@ -60,7 +61,7 @@ def firewalls_update(request):
         descript = request.POST['descript']
         
         # Connect to the database
-        conn = psycopg2.connect(database='signis', user='jorherol', password='jho18451198t', host='localhost', port='5432')
+        conn = psycopg2.connect(database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD'], host='localhost', port='5432')
         cursor = conn.cursor()
         d_conn = {}
         d_conn['conn'] = conn
@@ -99,7 +100,7 @@ def firewalls_delete(request):
         id = request.POST['id']
         
         # Connect to the database
-        conn = psycopg2.connect(database='signis', user='jorherol', password='jho18451198t', host='localhost', port='5432')
+        conn = psycopg2.connect(database=settings.DATABASES['default']['NAME'], user=settings.DATABASES['default']['USER'], password=settings.DATABASES['default']['PASSWORD'], host='localhost', port='5432')
         cursor = conn.cursor()
         d_conn = {}
         d_conn['conn'] = conn

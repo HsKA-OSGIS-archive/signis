@@ -1541,24 +1541,40 @@ md-checkbox.md-default-theme.md-checked .md-icon, md-checkbox.md-checked .md-ico
         }
     }; 
      
+    window.layerSelectedSwipe1 = null;
+    window.layerSelectedSwipe2 = null;
     $scope.changeLayerSwipe1 = function(evt) {
         var e = document.getElementById('selectLayer1');
-        var selectLayer1 = e.options[e.selectedIndex].value;
-        if (selectLayer1 != ''){
-            console.log(selectLayer1);
-            arrayModel[selectLayer1].setVisible(true);
-            ctrl1.addLayer(arrayModel[selectLayer1]);
-         }
+        var selectLayer1 = e.options[e.selectedIndex].value - 1;
+              window.layerSelectedSwipe1 = selectLayer1;
+              for (var i = 0; i < arrayModel.length; i ++) {
+                arrayModel[i].setVisible(false);
+                ctrl1.removeLayer(arrayModel[i]);
+              }
+              if (window.layerSelectedSwipe2 != null) {
+                arrayModel[window.layerSelectedSwipe2].setVisible(true);
+                ctrl1.addLayer(arrayModel[window.layerSelectedSwipe2], true);
+              }
+              arrayModel[selectLayer1].setVisible(true);
+              ctrl1.addLayer(arrayModel[selectLayer1]);
+              console.log(ctrl1);
     };
-    
+
     $scope.changeLayerSwipe2 = function() {
         var e = document.getElementById('selectLayer2');
-        var selectLayer2 = e.options[e.selectedIndex].value;
-        if (selectLayer2 != ''){
-            console.log(selectLayer2);
-            arrayModel[selectLayer2].setVisible(true);
-            ctrl1.addLayer(arrayModel[selectLayer2], true);
-         }
+        var selectLayer2 = e.options[e.selectedIndex].value - 1;
+              window.layerSelectedSwipe2 = selectLayer2;
+              for (var i = 0; i < arrayModel.length; i ++) {
+                arrayModel[i].setVisible(false);
+                ctrl1.removeLayer(arrayModel[i]);
+              }
+              if (window.layerSelectedSwipe1 != null) {
+                arrayModel[window.layerSelectedSwipe1].setVisible(true);
+                ctrl1.addLayer(arrayModel[window.layerSelectedSwipe1]);
+              }
+              arrayModel[selectLayer2].setVisible(true);
+              ctrl1.addLayer(arrayModel[selectLayer2], true);
+              console.log(ctrl1);
     };
      
 

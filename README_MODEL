@@ -1,0 +1,15 @@
+The risk model has been developed focused on the area of Valencia, Spain.
+Part of the code given in this project is not running in the web application, 
+but it is provided in case someone in interested in the whole processs.
+The code works with specific files, given in the repository. To change them, the 
+same structure and name of files has been considered.
+
+The code given in the folder model/code is the following (run in this order):
+
+- code1.py: spatial tools with vectorial data.
+- DTM.py: operations with digital terrain model
+- NDVI.py: NDVI calculations from Landsat images
+- stations.py and stations_join.py: code to join the spatial and csv file and metereological operations
+- model.py: raster operations with all the previous results
+
+- test_model.py: scrip that is running with the platform. Uses previous results, given in the repository.

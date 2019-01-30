@@ -50,10 +50,13 @@ To build the application you can run in the directory of the repository:
 ```
 ./runserver.sh
 ```
-To configure the application, press the option 1 and follow the instructions. Then, you can open the navigator in:
+To configure the application, press the option 1 and follow the instructions. Then, you can open the browser in:
 ```
 http://localhost:8000
 ```
+
+## Model information
+To see more information about the model go to the model [readme](https://github.com/HsKA-OSGIS/signis/blob/master/README_MODEL)
 
 ## Limitations
 
@@ -67,10 +70,10 @@ The project is builded with Django 1.11, Python 2 and you need to run the model 
 ## Authors
 
 * **Carlos Bayarri** - [CarlosBayarri](https://github.com/CarlosBayarri)
-* **Raquel Luján** - [RaquelLujan](https://github.com/)
-* **Jorge Hernández** - [JorgeHernandez](https://github.com/)
-* **Jesús Sanchez** - [JesusSanchez](https://github.com/)
-* **Raquel Arcon** - [RaquelArcon](https://github.com/)
+* **Raquel Luján** - [RaquelLujan](https://github.com/ralugar)
+* **Jorge Hernández** - [JorgeHernandez](https://github.com/jorgeho1995)
+* **Jesús Sanchez** - [JesusSanchez](https://github.com/jesusn95)
+* **Raquel Arcon** - [RaquelArcon](https://github.com/rachelarna)
 
 ## License
 

@@ -9,7 +9,8 @@ The code given in the folder model/code is the following (run in this order):
 - code1.py: spatial tools with vectorial data.
 - DTM.py: operations with digital terrain model
 - NDVI.py: NDVI calculations from Landsat images
-- stations.py and stations_join.py: code to join the spatial and csv file and metereological operations
+- stations.py and stations_join.py: code to join the spatial and csv file and metereological operations.
+The format of the meteorogical data is the one provided by: http://riegos.ivia.es/datos-meteorologicos
 - model.py: raster operations with all the previous results
 
 - test_model.py: scrip that is running with the platform. Uses previous results, given in the repository.

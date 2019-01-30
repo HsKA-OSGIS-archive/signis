@@ -4,7 +4,7 @@ This project is focussed in the development of a fire risk model and a web platf
 
 ## Getting Started
 
-To start de application you can run the script 'runserver.sh'. It's a face to face with the software, guiding you throught the configuration of the application. 
+To start de application you can run the script [runserver.sh](https://github.com/HsKA-OSGIS/signis/blob/master/runserver.sh). It's a face to face with the software, guiding you throught the configuration of the application. 
 
 ### Prerequisites
 

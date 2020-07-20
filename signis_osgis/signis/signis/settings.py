@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'signis_osgis',
         'USER': 'jorherol',
-        'PASSWORD': 'jho18451198t',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': 5432,
     }
